@@ -1,0 +1,67 @@
+\documentclass[12pt]{book}
+
+\usepackage{geometry}
+\geometry{a4paper, centering, scale=0.8}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage[version=3]{mhchem}
+\usepackage{graphicx}
+\usepackage[UTF8]{ctex}
+\usepackage{fontspec}
+\usepackage{setspace}
+\usepackage{bm}
+\usepackage{cite}
+\usepackage{braket}
+% 定义一些命令，可以方便地输入一些记号
+\newtheorem{law}{定律}
+\newtheorem{ded}{推论}
+\newtheorem{thm}{定理}
+\newtheorem{asg}{作业}
+\def\d{\mathrm{d}}
+\def\e{\mathrm{e}}
+\def\i{\mathrm{i}}
+\def\dps{\displaystyle}
+\newcommand{\mr}[1]{\mathrm{#1}}
+\newcommand{\mb}[1]{\mathbf{#1}}
+\newcommand{\dv}[2]{\frac{\d{#1}}{\d{#2}}}
+\newcommand{\pdv}[2]{\frac{\partial{#1}}{\partial{#2}}}
+\def\degree{$^{\circ}$}
+
+% 字体设置
+\setmainfont{Times New Roman}
+% 如果不是Mac系统请注释掉下面的两行
+%\setsansfont{Helvetica}
+%\setCJKsansfont{STHeitiSC-Medium}
+
+\usepackage{makecell}
+\newcommand{\addcell}[2][4]{\makecell{\zihao{#1}\textsf{#2}}}
+\usepackage{titlesec}
+\usepackage{booktabs}
+
+% 设置图注、表注
+\usepackage{caption}
+\usepackage{bicaption}
+\captionsetup{labelsep=quad, font={small, bf}, skip=2pt}
+\renewcommand\figurename{图}
+\renewcommand\tablename{表}
+\DeclareCaptionOption{english}[]{
+    \renewcommand\figurename{图}
+    \renewcommand\tablename{表}
+}
+\captionsetup[bi-second]{english}
+
+
+\usepackage[sectionbib]{chapterbib}
+
+\begin{document}
+    \title{\heiti 化学中的数学}
+    \author{\kaishu 蒋然 \\ \kaishu 王崇斌}
+    \maketitle
+    \tableofcontents
+
+    \mainmatter
+ 
+    \include{chp_1_Hamilton_equation}
+
+\end{document}
