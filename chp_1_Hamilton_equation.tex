@@ -1,0 +1,104 @@
+\chapter{Hamilton 运动方程}
+    \section{20200925：正则方程}
+
+    经典力学中常用的独立变量为位置$x$和动量$p$, 且满足关系
+    \begin{align*}
+        \dot{x} = \frac pm\\
+        \dot{p} = -\frac {\partial V}{\partial x}
+    \end{align*}
+
+    首先研究HCl分子。每个原子的坐标有3个自由度，总共是6个自由度。而这个分子总体有3个平动自由度，2个转动自由度，还剩余1个振动自由度。振动自由度的能量由\textbf{势能面}来描述。势能面是两个原子的距离$r$的函数，且
+    \begin{equation*}
+        \lim_{r \to \infty} V(r) = 0
+    \end{equation*}
+    当$r$减小时，势能逐渐减小，有一个极小值，对应的两原子距离称为平衡位置$r_\mathrm{eq}$, 然后再减小$r$时，势能增大，最后达到
+    \begin{equation*}
+        \lim_{r \to 0^+} V(r) = +\infty
+    \end{equation*}
+
+    实际上在平衡位置附近，我们把这个振动自由度近似为谐振子模型。通过改变势能零点的定义，我们总可以把势能写为
+    \begin{equation*}
+        V(r) = \frac 12 k(r-r_\mathrm{eq})^2
+    \end{equation*}
+    根据势能的形式可以写出力的形式
+    \begin{equation*}
+        F = -\frac {\partial V}{\partial r} = -k(r-r_\mathrm{eq})
+    \end{equation*}
+    做变换$x = r - r_\mathrm{eq}$, 可以将势能写为
+    \begin{equation*}
+        V(x) = \frac 12 kx^2
+    \end{equation*}
+    也可以将位置和动量对时间导数写为
+    \begin{align*}
+        \dot{x} = \frac pm\\
+        \dot{p} = -kx
+    \end{align*}
+    现在求解这个运动方程：
+    \begin{align*}
+        \ddot{x} = \frac {\dot{p}}m = -\frac {kx}{m}
+    \end{align*}
+    这是一个二阶常微分方程，求解得到通解
+    \begin{align*}
+        x &= A \cos{\omega t} + B \sin{\omega t}\\
+        p &= -{Am\omega} \sin{\omega t} + {Bm \omega} \cos{\omega t}
+    \end{align*}
+    其中$\omega = \sqrt{\frac km}$. 如果给定初始条件
+    \begin{align*}
+        x(0) = x_0\\
+        p(0) = p_0
+    \end{align*}
+    将这两个方程代入到通解中，得到
+    \begin{align*}
+        x &= x_0 \cos{\omega t} + \frac {p_0}{m\omega} \sin{\omega t}\\
+        p &= p_0 \cos{\omega t} - {m\omega x_0} \sin{\omega t}
+    \end{align*}
+
+    体系的Hamilton函数为
+    \begin{align*}
+        H(x,p,t) &= \frac {p^2}{2m} + V(x)
+    \end{align*}
+    现在希望验算
+    \begin{align*}
+        H(x,p,t) = H(x,p,0),~~~~~\forall t
+    \end{align*}
+    为了证明这个成立，首先可以推导\textbf{正则方程}：
+    \begin{align*}
+        \frac {\partial H}{\partial x} &= \frac {\partial V}{\partial x} = -\dot{p}\\
+        \frac {\partial H}{\partial p} &= \frac pm = \dot{x}
+    \end{align*}
+    因此
+    \begin{align*}
+        \frac {\mathrm{d}H}{\mathrm{d}t} &= \frac {\partial H}{\partial x} \dot{x} + \frac {\partial H}{\partial p} \dot{p} + \frac {\partial H}{\partial t} = \frac {\partial H}{\partial t}
+    \end{align*}
+    这个结论对任意正则方程成立的体系都成立。在谐振子模型中，Hamilton函数不显含时间，故
+    \begin{equation*}
+        \frac {\mathrm{d}H}{\mathrm{d}t} = 0
+    \end{equation*}
+    这个体系可以在\textbf{相空间}中描述，即把它的状态画在一个$(x,p)$的二维空间中，观察它随时间的变化。显然地谐振子体系在相空间中的轨迹应该是一个椭圆。
+    \begin{align*}
+        \frac {p^2}{2m} + \frac 12 kx^2 = E_0
+    \end{align*}
+    其周期为
+    \begin{equation*}
+        T = \frac {2\pi}{\omega}
+    \end{equation*}
+    但是，对于任意的满足能量守恒的体系，其在相空间中的轨迹不一定是一条封闭的曲线，在一些情况下有可能充满相空间的某个区域。\cite{Landau2007mechanics}
+    \begin{asg}
+        第1次作业第1题：一维四次势的周期轨道
+    \end{asg}
+
+    现在考虑质量是$x,p$的函数$m_\mathrm{eff}(x,p)$, 在这种情况下Hamilton函数为
+    \begin{equation*}
+        H(x,p) = \frac {p^2}{2m_\mathrm{eff}(x,p)} + V(x)
+    \end{equation*}
+    在这种情况下的运动方程为
+    \begin{align*}
+        \dot{x} &= \frac {\partial H}{\partial p} = \frac {p}{2m_{\mathrm{eff}}} - \frac {p^2}{2m_{\mathrm{eff}^2}} \frac {\partial m_\mathrm{eff}}{\partial p} \\
+        \dot{p} &= -\frac {\partial H}{\partial x} = \frac {p^2}{2m_\mathrm{eff}^2} \frac {\partial m_\mathrm{eff}}{\partial x} + \frac {\partial V}{\partial x}
+    \end{align*}
+    这种情况下能量仍然守恒，因为Hamilton函数不显含时间，且正则方程成立。
+    \begin{asg}
+        第1次作业第2题：竖立粉笔的问题
+    \end{asg}
+    \bibliographystyle{plain}
+    \bibliography{ref_chp_1}
