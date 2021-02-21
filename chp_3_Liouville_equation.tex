@@ -1,0 +1,113 @@
+\chapter{Liouville 方程}
+
+    \section{20201012：Euler图象演化概率密度}
+
+    Liouville定理有两种表述形式：
+    \begin{equation*}
+        -\frac {\partial \rho}{\partial t} = \{ \rho,H \}
+    \end{equation*}
+    以及 
+    \begin{equation*}
+        \frac {\mathrm{d}\rho}{\mathrm{d}t} = 0
+    \end{equation*}
+    第一种形式下，$\rho = \rho(x, p ,t)$, 第二种形式下$\rho = \rho(x_t,p_t,t)$. 分别表示了Euler和Lagrange两种图象。
+
+    回顾描述HCl分子的振动的例子，我们可以用Morse势来描述这个振动：
+    \begin{equation*}
+        V(x) = D_e (1- \mathrm{e}^{-a(r-r_\mathrm{eq})})^2 = D_e(1-\mathrm{e}^{-ax})^2
+    \end{equation*}
+    其中有$a>0$, 在平衡位置附近可以使用谐振子近似。写出其Boltzmann分布
+    \begin{equation*}
+        \rho(x,p,0) = \frac 1Z \mathrm{e}^{-\beta (\frac {p^2}{2m} + \frac 12 m\omega^2 x^2)} 
+    \end{equation*}
+    由概率密度的归一化，可以得到配分函数的值，这里涉及到Gauss函数的积分
+    \begin{align*}
+        I &= \int_0^{+\infty} \mathrm{e}^{-ax^2} x^{n} \mathrm{d}x
+    \end{align*}
+    令$t = ax^2$, 则$\mathrm{d}t = 2ax\mathrm{d}x$
+    所以
+    \begin{align*}
+    I &= \int_0^{+\infty} \mathrm{e}^{-t} \bigg(\frac ta\bigg)^{\frac n2} \frac {\mathrm{d}t}{\sqrt{at}}\\
+    &= \frac 1{2a^{\frac {n+1}2}} \int_0^{+\infty} \mathrm{e}^{-t} t^{\frac {n-1}2} \mathrm{d}t\\
+    &= \frac {\Gamma(\frac {n+1}2)}{2a^{\frac {n+1}2}}
+    \end{align*}
+    据此算出配分函数
+    \begin{equation*}
+        Z = \int \mathrm{e}^{-\beta (\frac {p^2}{2m} + \frac 12 m\omega^2 x^2)} \mathrm{d}x\mathrm{d}p = \frac {2\pi}{\beta \omega}
+    \end{equation*}
+    从量纲上分析，在配分函数中少了$\mathrm{d}x\mathrm{d}p$的量纲。本质上应该除以$2\pi\hbar$, 相当于对相空间做了量子化。于是
+    \begin{equation*}
+        Z = \frac 1{\beta \hbar \omega}
+    \end{equation*}
+    就是无量纲的配分函数。
+
+    回到用Morse势描述HCl的振动的问题，Morse势的常数$a$可以用谐振子近似的$\omega$进行估计。令$x \to 0 $，对$V(x)$在平衡位置附近作Taylor展开，展开到二阶。
+    \begin{equation*}
+        V(x) = D_e a^2 x^2 + o(x^2)
+    \end{equation*}
+    它与谐振子近似一致，因此
+    \begin{equation*}
+        \frac 12 m\omega^2x^2 = D_e a^2 x^2
+    \end{equation*}
+    于是
+    \begin{equation*}
+        \omega = \sqrt{\frac {2D_ea^2}m}
+    \end{equation*}
+    \begin{asg}
+        第2次作业第2题：构造\ce{H2}分子的Morse势
+    \end{asg}
+    \begin{asg}
+        第2次作业第3题：以Boltzmann分布为初始分布，在Morse势，Euler图象下演化\ce{H2}的$t$时刻的分布。
+    \end{asg}
+    事实上，对双原子分子HCl, 它有6个自由度，3个平动，2个转动，所以我们可以只用振动自由度来描述HCl的分子结构。
+
+    \section{20201016：Lagrange图象演化概率密度}
+
+    除了用Euler图象来演化密度以外，也可以用Lagrange图象来演化密度。由
+    \begin{equation*}
+        \frac {\mathrm{d}}{\mathrm{d}t} \rho(x_t,p_t,t) = 0
+    \end{equation*}
+    可以得到$t$时刻的概率密度为
+    \begin{equation*}
+        \rho(x,p,t) = \int \rho(x_0,p_0,0)\delta(x-x_t(x_0,p_0)) \delta(p-p_t(x_0,p_0)) \mathrm{d}x_0\mathrm{d}p_0
+    \end{equation*}
+    这里引入了$\delta$函数。$\delta$函数满足
+    \begin{align*}
+        \delta(x-x_0) &= 0, \ \forall \ x \neq x_0\\
+        \int_{-\infty}^{+\infty} \delta(x-x_0) \mathrm{d}x &= 1\\
+        \int_{-\infty}^{+\infty} f(x)\delta(x-x_0) \mathrm{d}x &= f(x_0)
+    \end{align*}
+    现在希望给$\delta$函数给一个形式，让它和上面满足的性质自洽：
+    可以利用Fourier变换及其逆变换的定义
+    \begin{align*}
+        \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f(x)\mathrm{e}^{\mathrm{i}kx}\mathrm{d}x &= F(k)\\
+        \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} F(k)\mathrm{e}^{-\mathrm{i}kx}\mathrm{d}k &= f(x)
+    \end{align*}
+    于是有
+    \begin{align*}
+        f(x_0) &= \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f(x)\mathrm{e}^{\mathrm{i}kx}\mathrm{d}x \mathrm{e}^{-\mathrm{i}kx_0}\mathrm{d}k\\
+        &= \frac 1{2\pi} \iint f(x)\mathrm{e}^{\mathrm{i}k(x-x_0)}\mathrm{d}x\mathrm{d}k\\
+        &= \frac 1{2\pi} \iint f(x)\mathrm{e}^{\mathrm{i}k(x-x_0)}\mathrm{d}k\mathrm{d}x
+    \end{align*}
+    于是可以写出$\delta$函数为
+    \begin{equation*}
+        \delta(x-x_0) = \frac 1{2\pi} \int_{-\infty}^{+\infty} \mathrm{e}^{\mathrm{i}k(x-x_0)}\mathrm{d}k
+    \end{equation*}
+
+    某个物理量的期望定义为
+    \begin{equation*}
+        \langle B(t) \rangle = \int \rho(x,p,t) B(x,p) \mathrm{d}x\mathrm{d}p
+    \end{equation*}
+    回到用Morse势描述HCl的振动的问题，在这个问题下，初始时刻为Boltzmann分布时，
+    \begin{align*}
+        \langle x \rangle &= 0\\
+        \langle x^2 \rangle &= \frac 1{\beta m \omega^2}\\
+        \Delta x &= \sqrt{\langle x^2 \rangle - \langle x \rangle ^2} = \frac 1{\sqrt{\beta m \omega^2}}
+    \end{align*}
+
+    \begin{asg}
+        第3次作业第2题：以Boltzmann分布为初始分布，在Morse势，Lagrange图象下演化\ce{H2}的$t$时刻的分布。
+    \end{asg}
+
+    \bibliographystyle{plain}
+    \bibliography{ref_chp_3}

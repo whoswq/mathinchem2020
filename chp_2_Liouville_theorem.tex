@@ -1,0 +1,180 @@
+\chapter{Liouville 定理}
+    \section{20200928：相空间不同时刻体积元的关系}
+    匀变速直线运动，应当有
+    \begin{align*}
+        x(t) &= x(0) + vt + \frac 12 at^2\\
+        &= x(0) + \dot{x}t + \frac 12 \ddot{x}t^2
+    \end{align*}
+    这相当于位置对时间作了Taylor展开，展开到二阶。但是为什么只考虑前两阶，而不考虑后面的项呢？
+
+    可以这样考虑：在给定了Hamilton函数的情形下，正则方程最多只涉及到对时间的二阶导数，最终解出位置对时间的函数，以及动量对时间的函数只有两个待定常数，因此只用位置和动量初始的条件。
+
+    现在开始研究一个多维体系，它的位置和动量分别不是一个标量，而是一个向量$\bm{x}, \bm{p}$. 如果系统的在$t$时刻的状态$(\bm{x}_t,\bm{p}_t)$对应一个相空间中的\textbf{体积元}：$\mathrm{d}\bm{x}_t\mathrm{d}\bm{p}_t$。如果给定初始条件$(\bm{x}_0,\bm{p}_0)$, 希望在正则方程成立的条件下，能够确定0时刻和$t$时刻的相空间体积元的关系。这个问题可以等效地理解为，将初始条件产生一个很小的偏差$(\mathrm{d}\bm{x}_0,\mathrm{d}\bm{p}_0)$，要求在$t$时刻的偏差和初始条件的关系。
+
+    这实际上给出了两种研究问题的办法：一种是参考系不动，一种是参考系随着时间跟踪系统在相空间中的轨线进行运动。
+
+    对于任意个不显含时间的函数$f(\bm{x}_t,\bm{p}_t)$, 它和$f(\bm{x}_0,\bm{p}_0)$的关系为：
+    \begin{align*}
+        \int f(\bm{x}_t,\bm{p}_t) \mathrm{d}\bm{x}_t\mathrm{d}\bm{p}_t = \int f(\bm{x}_0,\bm{p}_0)\bigg|\frac {\partial (\bm{x}_t, \bm{p}_t)}{\partial (\bm{x}_0,\bm{p}_0)}\bigg| \mathrm{d}\bm{x}_0 \mathrm{d}\bm{p}_0
+    \end{align*}
+    由此可知，算出Jacobi行列式的值是非常重要的。Jacobi行列式的对应矩阵写为
+    \begin{align*}
+        \begin{pmatrix}
+            \frac {\partial \bm{x}_t}{\partial \bm{x}_0} & \frac {\partial \bm{x}_t}{\partial \bm{p}_0}\\
+            \frac {\partial \bm{p}_t}{\partial \bm{x}_0} & \frac {\partial \bm{p}_t}{\partial \bm{p}_0}
+        \end{pmatrix}
+    \end{align*}
+
+    我们可以把$t$时刻的状态写成初始条件的函数：
+    \begin{align*}
+        \bm{x}_t &= \bm{x}_t(\bm{x}_0, \bm{p}_0)\\
+        \bm{p}_t &= \bm{p}_t(\bm{x}_0, \bm{p}_0)
+    \end{align*}
+    如果初始状态偏离$(\mathrm{d}\bm{x}_0,\mathrm{d}\bm{p}_0)$，那么
+    \begin{align*}
+        \bm{x}_t(\bm{x}_0+\mathrm{d}\bm{x}_0, \bm{p}_0+\mathrm{d}\bm{p}_0) &= \bm{x}_t(\bm{x}_0, \bm{p}_0) + \frac {\partial \bm{x}_t}{\partial \bm{x_0}} \mathrm{d}x_0 + \frac {\partial \bm{x}_t}{\partial \bm{p}_0} \mathrm{d}p_0\\
+        \bm{p}_t(\bm{x}_0+\mathrm{d}\bm{x}_0, \bm{p}_0+\mathrm{d}\bm{p}_0) &= \bm{p}_t(\bm{x}_0, \bm{p}_0) + \frac {\partial \bm{p}_t}{\partial \bm{x_0}} \mathrm{d}x_0 + \frac {\partial \bm{p}_t}{\partial \bm{p}_0} \mathrm{d}p_0
+    \end{align*}
+    此处只考虑Taylor展开到一阶的结果。或者写成
+    \begin{align*}
+        \mathrm{d}\bm{x}_t &= \frac {\partial \bm{x}_t}{\partial \bm{x_0}} \mathrm{d}x_0 + \frac {\partial \bm{x}_t}{\partial \bm{p}_0} \mathrm{d}p_0\\
+        \mathrm{d}\bm{p}_t &= \frac {\partial \bm{p}_t}{\partial \bm{x_0}} \mathrm{d}x_0 + \frac {\partial \bm{p}_t}{\partial \bm{p}_0} \mathrm{d}p_0
+    \end{align*}
+    矩阵没有办法直接求出来，我们尝试对时间求导。
+    \begin{align*}
+        \frac {\mathrm{d}}{\mathrm{d}t} \bigg(\frac {\partial \bm{x}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0} &= \bigg(\frac {\partial}{\partial \bm{x}_0} \frac {\mathrm{d}}{\mathrm{d}t} \bm{x}_t\bigg)_{\bm{p}_0} = \bigg(\frac {\partial}{\partial \bm{x}_0} \bigg(\frac {\partial H}{\partial \bm{p}_t}\bigg)_{\bm{x}_t}\bigg)_{\bm{p}_0} = \bigg(\frac {\partial^2 H}{\partial \bm{x}_t \partial \bm{p}_t}\bigg) \bigg(\frac {\partial \bm{x}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0}+ \bigg(\frac {\partial^2H}{\partial \bm{p}_t^2}\bigg)_{\bm{x}_t} \bigg(\frac {\partial \bm{p}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0}\\
+        \frac {\mathrm{d}}{\mathrm{d}t} \bigg(\frac {\partial \bm{x}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0} &= \bigg(\frac {\partial}{\partial \bm{p}_0} \frac {\mathrm{d}}{\mathrm{d}t} \bm{x}_t\bigg)_{\bm{x}_0} = \bigg(\frac {\partial}{\partial \bm{p}_0} \bigg(\frac {\partial H}{\partial \bm{p}_t}\bigg)_{\bm{x}_t}\bigg)_{\bm{x}_0} = \bigg(\frac {\partial^2 H}{\partial \bm{x}_t \partial \bm{p}_t}\bigg) \bigg(\frac {\partial \bm{x}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0} + \bigg(\frac {\partial^2H}{\partial \bm{p}_t^2}\bigg)_{\bm{x}_t} \bigg(\frac {\partial \bm{p}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0}\\
+        \frac {\mathrm{d}}{\mathrm{d}t} \bigg(\frac {\partial \bm{p}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0} &= \bigg(\frac {\partial}{\partial \bm{x}_0} \frac {\mathrm{d}}{\mathrm{d}t} \bm{p}_t\bigg)_{\bm{p}_0} = -\bigg(\frac {\partial}{\partial \bm{x}_0} \bigg(\frac {\partial H}{\partial \bm{x}_t}\bigg)_{\bm{p}_t}\bigg)_{\bm{p}_0} = -\bigg(\frac {\partial^2 H}{\partial \bm{x}_t^2}\bigg)_{\bm{p}t} \bigg(\frac {\partial \bm{x}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0}- \bigg(\frac {\partial^2H}{\partial \bm{p}_t \partial \bm{x}_t}\bigg) \bigg(\frac {\partial \bm{p}_t}{\partial \bm{x}_0}\bigg)_{\bm{p}_0}\\
+        \frac {\mathrm{d}}{\mathrm{d}t} \bigg(\frac {\partial \bm{p}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0} &= \bigg(\frac {\partial}{\partial \bm{p}_0} \frac {\mathrm{d}}{\mathrm{d}t} \bm{p}_t\bigg)_{\bm{x}_0} = -\bigg(\frac {\partial}{\partial \bm{p}_0} \bigg(\frac {\partial H}{\partial \bm{x}_t}\bigg)_{\bm{p}_t}\bigg)_{\bm{x}_0} = -\bigg(\frac {\partial^2 H}{\partial \bm{x}_t^2}\bigg)_{\bm{p}t} \bigg(\frac {\partial \bm{x}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0}- \bigg(\frac {\partial^2H}{\partial \bm{p}_t \partial \bm{x}_t}\bigg) \bigg(\frac {\partial \bm{p}_t}{\partial \bm{p}_0}\bigg)_{\bm{x}_0}
+    \end{align*}
+    由此可以得到
+    \begin{align*}
+        \frac {\mathrm{d}}{\mathrm{d}t}
+        \begin{pmatrix}
+            \frac {\partial \bm{x}_t}{\partial \bm{x}_0} & \frac {\partial \bm{x}_t}{\partial \bm{p}_0}\\
+            \frac {\partial \bm{p}_t}{\partial \bm{x}_0} & \frac {\partial \bm{p}_t}{\partial \bm{p}_0}
+        \end{pmatrix}
+        =
+        \begin{pmatrix}
+            \frac {\partial^2 H}{\partial \bm{x}_t \partial \bm{p}_t} & (\frac {\partial^2 H}{\partial \bm{p}_t^2})_{\bm{x}_t}\\
+            -(\frac {\partial^2 H}{\partial \bm{x}_t^2})_{\bm{p}_t} & - \frac {\partial^2 H}{\partial \bm{x}_t \partial \bm{p}_t}
+        \end{pmatrix}
+        \begin{pmatrix}
+            \frac {\partial \bm{x}_t}{\partial \bm{x}_0} & \frac {\partial \bm{x}_t}{\partial \bm{p}_0}\\
+            \frac {\partial \bm{p}_t}{\partial \bm{x}_0} & \frac {\partial \bm{p}_t}{\partial \bm{p}_0}
+        \end{pmatrix}
+    \end{align*}
+    将此处的Jacobi矩阵称为\textbf{稳定性矩阵}，其含义是如果系统初始时刻状态变化很小，那么$t$时刻的变化也很小。
+    \begin{asg}
+        第1次作业第3题：Liouville定理的证明
+    \end{asg}
+
+    \section{20201009：Liouville定理}
+    设矩阵
+    \begin{equation*}
+        \bm{A} = 
+        \begin{pmatrix}
+            a_{11} & \cdots & a_{1n}\\
+            \vdots & & \vdots\\
+            a_{n1} & \cdots & a_{nn}\\
+            \end{pmatrix}
+    \end{equation*}
+    它的行列式为
+    \begin{equation*}
+        \det{\bm{A}} = \sum_{j=1}^n (-1)^{i+j} a_{ij} \bm{A}_{ij}^*, \ \forall \ i
+    \end{equation*}
+    其中，$\bm{A}_{ij}^*$表示$a_{ij}$的代数余子式。定义$\bm{A}$的\textbf{伴随矩阵}$\bar{\bm{A}}$为
+    \begin{equation*}
+        \bar{\bm{A}}_{ij} = \bm{A}_{ji}^* 
+    \end{equation*}
+    矩阵的逆矩阵为
+    \begin{equation*}
+        \bm{A}^{-1} = \frac 1{\det{\bm{A}}} \bm{\bar{A}}
+    \end{equation*}
+    对行列式的求导并不是对每个元素求导再求行列式，而是依照下列方法：
+    \begin{align*}
+        \frac {\mathrm{d}}{\mathrm{d}t} \det{\bm{A}} = \sum_i \det{\tilde{\bm{A}_i}}
+    \end{align*}
+    其中，$\bm{A}_i$是只对第$i$行的所有元素对时间求导，其他元素不变得到的矩阵。进一步得到
+    \begin{align*}
+        \frac {\mathrm{d}}{\mathrm{d}t} \det{\bm{A}} &= \sum_i \det{\tilde{\bm{A}_i}} = \sum_{i=1}^n \sum_{j=1}^n \frac {\mathrm{d}a_{ij}}{\mathrm{d}t} \bm{A}_{ij}^*\\
+        &= \mathrm{Tr} \bigg(\frac {\mathrm{d}\bm{A}}{\mathrm{d}t} \bar{\bm{A}}\bigg) = \mathrm{Tr} \bigg(\frac {\mathrm{d}\bm{A}}{\mathrm{d}t} \bm{A}^{-1}\bigg) \det{\bm{A}}
+    \end{align*}
+    将两边同时除以$\bm{A}$的行列式，得到
+    \begin{equation*}
+        \frac {\mathrm{d}}{\mathrm{d}t} \ln{\det{\bm{A}}} = \mathrm{Tr} \bigg(\frac {\mathrm{d}\bm{A}}{\mathrm{d}t} \bm{A}^{-1}\bigg)
+    \end{equation*}
+    如果
+    \begin{equation*}
+        \frac {\mathrm{d}}{\mathrm{d}t} \bm{A} = \bm{MA}
+    \end{equation*}
+    就有
+    \begin{equation*}
+        \frac {\mathrm{d}}{\mathrm{d}t} \ln{\det{\bm{A}}} = \mathrm{Tr}\ \bm{M}
+    \end{equation*}
+    对于上一节讲的Jacobi矩阵，有
+    \begin{equation*}
+        \bm{M} = 
+        \begin{pmatrix}
+        \frac {\partial^2 H}{\partial \vec{x}_t \partial \vec{p}_t} & (\frac {\partial^2 H}{\partial \vec{p}_t^2})_{\vec{x}_t}\\
+        -(\frac {\partial^2 H}{\partial \vec{x}_t^2})_{\vec{p}_t} & - \frac {\partial^2 H}{\partial \vec{x}_t \partial \vec{p}_t}
+        \end{pmatrix}
+    \end{equation*}
+    显然这个矩阵的迹为0，所以
+    \begin{equation*}
+        \frac {\mathrm{d}}{\mathrm{d}t} \det \bigg|\frac {\partial (\bm{x}_t,\bm{p}_t)}{\partial (\bm{x}_0,\bm{p}_0)} \bigg| = 0
+    \end{equation*}
+    但初始时刻显然Jacobi行列式为1，所以Jacobi行列式一直为1，就有
+    \begin{equation*}
+        \mathrm{d}\bm{x}_t \mathrm{d}\bm{p}_t = \mathrm{d}\bm{x}_0 \mathrm{d}\bm{p}_0
+    \end{equation*}
+
+    这个结论称为\textbf{Liouville定理}。注意到这个结论的推导只用到了正则方程，只要正则方程成立，这个结论就成立。
+
+    如果定义一个概率密度$\rho(\bm{x},\bm{p})$，它满足归一化条件，且处处不小于0. 假设初始条件下在$\bm{x}_0,\bm{p}_0$位置有个体积元$\mathrm{d}\bm{x}_0 \mathrm{d}\bm{p}_0$，跟踪这个体积元经历的轨线，达到$\mathrm{d}\bm{x}_t \mathrm{d}\bm{p}_t$时，在这个体积元的概率应为不变的。这可以理解为，根据Liouville定理，最开始在体积元里面的状态仍然会在初始状态演化后的体积元里。这可以表述为
+    \begin{equation*}
+        \rho(\bm{x}_t,\bm{p}_t) = \rho(\bm{x}_0,\bm{p}_0)
+    \end{equation*}
+    它对任意的$t$都成立，则
+    \begin{equation*}
+        \frac {\mathrm{d}\rho}{\mathrm{d}t} = \frac {\partial \rho}{\partial t} + \frac {\partial \rho}{\partial \bm{x}_t}\dot{\bm{x}}_t  + \frac {\partial \rho}{\partial \bm{p}_t} \dot{\bm{p}}_t = 0
+    \end{equation*}
+    再利用正则方程，得到
+    \begin{equation*}
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{p}_t} - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{x}_t}
+    \end{equation*}
+    定义\textbf{Poisson括号}为
+    \begin{equation*}
+        \{ \rho, H\} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{p}_t} - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{x}_t}
+    \end{equation*}
+    则有
+    \begin{equation*}
+        - \frac {\partial \rho}{\partial t} = \{ \rho, H\}
+    \end{equation*}
+    这也是Liouville定理的一种形式。如果Hamilton函数满足形式
+    \begin{equation*}
+        H(\bm{x}_t,\bm{p}_t) = \frac 12 \bm{p}_t^\mathrm{T} \bm{M}^{-1} \bm{p}_t + V(\bm{x}_t)
+    \end{equation*}
+    则有
+    \begin{equation*}
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \bm{M}^{-1} \bm{p}_t  - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial V}{\partial \bm{x}_t}
+    \end{equation*}
+
+    一种常见的分布：\textbf{Boltzmann分布}：
+    \begin{equation*}
+        \rho(\bm{x},\bm{p}) \propto \mathrm{e}^{-\beta H(\bm{x},\bm{p})}
+    \end{equation*}
+
+    如果一个分布满足
+    \begin{equation*}
+        \frac {\partial \rho}{\partial t} = 0
+    \end{equation*}
+    则称为\textbf{稳态分布}。但是即使不是稳态分布，它也会满足对时间的全导数是0。这也是Liouville定理的一个形式。
+    \begin{asg}
+        第2次作业第1题: Boltzmann分布是否为稳态分布？
+    \end{asg}
+
+    研究一个概率密度的时候，有两种方式：一种是研究密度对时间的偏导，看静止空间的概率密度的变化，这称为\textbf{Euler图象}。另一种方式是研究密度对时间的劝导，跟踪状态运动的轨线，研究这个密度体积元在不同的时间的位置，这称为\textbf{Lagrange图象}。
+
+    \bibliographystyle{plain}
+    \bibliography{ref_chp_2}
