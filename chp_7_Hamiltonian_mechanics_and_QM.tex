@@ -1,0 +1,677 @@
+\chapter{Hamilton力学和量子力学的算符形式}
+    \section{20201109：量子力学基本假设}
+        从本节开始讨论量子力学。量子力学中第一个重要的概念是\textbf{态}。有了态我们可以进行测量，得到这个态的物理量。用$| \psi \rangle$来表示态。
+
+        如何来描述这个态呢？我们可以选择一个空间进行描述。对于经典力学，我们之前选择了相空间。但对于量子力学，我们选择位置空间或者动量空间进行描述。如果选取位置空间，对这个态的描述为
+        \begin{equation*}
+            \langle \bm{x} | \psi \rangle = \psi(\bm{x})
+        \end{equation*}
+        将这个函数称为\textbf{波函数}。如果选取动量空间，类似地可以描述为
+        \begin{equation*}
+            \langle \bm{p} | \psi \rangle = \psi(\bm{p})
+        \end{equation*}
+        量子力学中，位置空间和动量空间都是连续的。
+
+        我们也可以在离散的空间中描述态。态可以看作一个向量，它可以用一组基展开。回顾在线性代数中，
+        \begin{equation*}
+            \bm{c} = \sum_n c_n \bm{e}_n
+        \end{equation*}
+        如果这组基是内积空间中的规范正交基，则
+        \begin{equation*}
+            \bm{c} = \sum_n \bm{e}_n (\bm{e}_n^\mathrm{T}\bm{c}) 
+            = \sum_n |n\rangle \langle n|c\rangle
+        \end{equation*}
+        由此可见
+        \begin{equation*}
+            \bm{I} = \sum_n |n\rangle \langle n|
+        \end{equation*}
+        在量子力学中，我们可以类似地描述态：
+        \begin{equation*}
+            |\psi \rangle = \sum_n |n\rangle \langle n|\psi \rangle = \sum_n c_n |n\rangle
+        \end{equation*}
+
+        物理量测量都是实数。物理量在量子力学中都对应一个算符，假设
+        \begin{equation*}
+            \hat{A} |n\rangle = a_n |n\rangle
+        \end{equation*}
+        其中$a_n$为实数，那么$|n\rangle$就是$\hat{A}$的一个本征态。我们可以把态对于$\hat{A}$的本征态来展开，得到
+        \begin{align*}
+            \hat{A}|\psi \rangle &= \hat{A}\hat{I}|\psi \rangle
+            = \hat{A} \sum_n |n\rangle \langle n|\psi\rangle
+            = \sum_n c_n a_n |n\rangle
+        \end{align*}
+        可以计算出$\hat{A}$的平均值为
+        \begin{align*}
+            \langle \hat{A} \rangle &= \langle \psi |\hat{A}| \psi \rangle\\
+            &= \sum_n \langle n| c_n^* \sum_m c_m a_m |m\rangle\\
+            &= \sum_n \sum_m c_n^* c_m a_m \langle n|m\rangle\\
+            &= \sum_n |c_n|^2 a_n
+        \end{align*}
+        这里用到了
+        \[\langle n | m \rangle = \delta_{nm}\]
+        注意到$|c_n|^2 \in [0,1]$，且$\sum_n |c_n|^2 = 1$（我们总可以让这个态乘一个常数使该式成立，此时态也满足归一化条件$\langle \psi |\psi \rangle = 1$）, 所以可以认为这个态处于该本征态的概率。按照Copenhagen学派的观点，我们测量某一个物理量时这个态会坍塌到这个物理量的一个本征态，而$|c_n^2|$反应了坍塌到第$n$个本征态的概率。
+
+        对于波函数$\langle \bm{x}|\psi \rangle$, 它的模方是在位置空间的概率密度。定义一个位置算符$\hat{\bm{y}}$。应有
+        \begin{equation*}
+            \hat{\bm{x}}|\bm{x}_0\rangle = \bm{x}_0 |\bm{x}_0\rangle
+        \end{equation*}
+        其中态$|\bm{x}_0\rangle$代表精确地处在$\bm{x}_0$位置的态。引入动量算符$\hat{\bm{p}}$，同样有
+        \begin{equation*}
+            \hat{\bm{p}}|\bm{p}_0\rangle = \bm{p}_0 |\bm{p}_0\rangle
+        \end{equation*}
+        类比在可数个物理量本征态下的展开，同样有
+        \begin{equation*}
+            \hat{I} = \int |\bm{x}\rangle \langle \bm{x}| \mathrm{d}\bm{x}
+        \end{equation*}
+        于是对位置的测量应有
+        \begin{equation*}
+            \hat{\bm{x}}|\psi \rangle = \int \hat{\bm{x}}|\bm{x}\rangle \langle \bm{x}|\psi \rangle \mathrm{d}\bm{x}
+            = \int \bm{x}|\bm{x}\rangle \langle \bm{x}|\psi \rangle \mathrm{d}\bm{x}
+        \end{equation*}
+        同样，任意一个态可以展开到位置空间
+        \begin{equation*}
+            |\psi \rangle = \int |\bm{x} \rangle \langle \bm{x}|\psi\rangle \mathrm{d}\bm{x}
+        \end{equation*}
+        类似地得到位置的平均值为
+        \begin{equation*}
+            \langle \psi | \hat{\bm{x}} | \psi \rangle 
+            = \int \bm{x} |\langle \bm{x} | \psi \rangle|^2 \mathrm{d}\bm{x}
+        \end{equation*}
+        这就给出了波函数的概率诠释。
+
+        接下来讨论动量算符在位置空间的描述。假设
+        \begin{equation*}
+            \langle \bm{x} |\hat{\bm{p}} | \psi \rangle
+            = \langle \bm{x} | \phi \rangle
+        \end{equation*}
+        如果选择
+        \begin{equation*}
+            \hat{\bm{p}} = -\mathrm{i}\hbar \frac {\partial }{\partial \bm{x}}
+        \end{equation*}
+        就得到
+        \begin{equation*}
+            \langle \bm{x} |\hat{\bm{p}} | \psi \rangle = -\mathrm{i}\hbar \frac {\partial }{\partial \bm{x}}\langle \bm{x} | \psi \rangle
+        \end{equation*}
+        有了位置算符和动量算符，我们可以讨论两个算符的\textbf{对易}
+        \begin{equation*}
+            [\hat{\bm{x}},\hat{\bm{p}}] = \hat{\bm{x}}\hat{\bm{p}} - \hat{\bm{p}}\hat{\bm{x}}
+        \end{equation*}
+        先计算
+        \begin{align*}
+            \langle \bm{x}_0 |\hat{\bm{p}}\hat{\bm{x}} | \psi \rangle &= -\mathrm{i}\hbar \frac {\partial}{\partial \bm{x}_0} \langle \bm{x}_0 |\hat{\bm{x}} | \psi \rangle\\
+            &= -\mathrm{i}\hbar \frac {\partial}{\partial \bm{x}_0} (\bm{x}_0\psi(\bm{x}_0))\\
+            &= -\mathrm{i}\hbar \psi(\bm{x}_0) - \mathrm{i}\hbar \bm{x}_0 \frac {\partial \psi(\bm{x}_0)}{\partial \bm{x}_0}
+        \end{align*}
+        再计算
+        \begin{align*}
+            \langle \bm{x}_0 |\hat{\bm{x}} \hat{\bm{p}} | \psi \rangle &= \bm{x}_0 \langle \bm{x}_0 \hat{\bm{p}} | \psi \rangle\\
+            &= -\mathrm{i}\hbar \bm{x}_0 \frac {\partial \psi(\bm{x}_0)}{\partial \bm{x}_0}
+        \end{align*}
+        这两个式子相比较，得到
+        \begin{equation*}
+            [\hat{\bm{x}},\hat{\bm{p}}] = \mathrm{i}\hbar
+        \end{equation*}
+        此即\textbf{Heisenberg不确定性原理}。
+
+    \section{20201113：不确定性原理}
+        总结一下量子力学的基本假设
+        \begin{enumerate}
+            \item 波函数：态$|\psi \rangle$可以在位置空间描述$\langle x|\psi\rangle$
+            \item 算符：物理量对应Hermite算符。
+            \item 测量：对某个态测量某个物理量，会得到其本征值。
+            \item 不确定性原理：$[\hat{\bm{x}},\hat{\bm{p}}] = \mathrm{i}\hbar$
+        \end{enumerate}
+        在量子力学中，位置空间、动量空间是连续的，时间也是连续的，并且认为质量不变。量子力学中，位置和动量都有对应的算符，但时间没有。
+
+        可以定义位置的量子涨落
+        \begin{equation*}
+            \Delta x = \sqrt{\langle \hat{x}^2 \rangle - \langle \hat{x} \rangle^2}
+        \end{equation*}
+        同理可以定义动量的量子涨落
+        \begin{equation*}
+            \Delta p = \sqrt{\langle \hat{p}^2 \rangle - \langle \hat{p} \rangle^2}
+        \end{equation*}
+        现在定义 
+        \begin{align*}
+            \Delta \hat{x} &= \hat{x} - \langle \hat{x} \rangle \\
+            \Delta \hat{p} &= \hat{p} - \langle \hat{p} \rangle
+        \end{align*}
+        希望求出
+        \begin{align*}
+            \langle \Delta \hat{x}^2\rangle\langle \Delta \hat{p}^2\rangle
+        \end{align*}
+        设
+        \begin{align*}
+            |\phi_x \rangle &= \Delta \hat{x}^2|\psi\rangle\\
+            |\phi_p \rangle &= \Delta \hat{p}^2|\psi\rangle
+        \end{align*}
+        于是 
+        \begin{align*}
+            \langle \Delta \hat{x}^2\rangle\langle \Delta \hat{p}^2\rangle = \langle \phi_x | \phi_x \rangle \langle \phi_p | \phi_p \rangle
+        \end{align*}
+        考察
+        \begin{align*}
+            |\langle \phi_x | \phi_p \rangle| = |\bm{a}^\dagger \bm{b}| = |\bm{a}||\bm{b}|\cos{\theta} \leqslant |\bm{a}||\bm{b}|
+        \end{align*}
+        应有
+        \begin{align*}
+            \langle \Delta \hat{x}^2\rangle\langle \Delta \hat{p}^2\rangle &= \langle \phi_x | \phi_x \rangle \langle \phi_p | \phi_p \rangle\\ &\geqslant |\langle \phi_x|\phi_p \rangle|^2\\
+            &= |\langle \psi |\Delta \hat{x} \Delta \hat{p}|\psi \rangle|^2
+        \end{align*}
+        所以只需要求出
+        \begin{align*}
+            \Delta \hat{x} \Delta \hat{p} = \frac 12([\Delta \hat{x}, \Delta \hat{p}] + \{\Delta \hat{x}, \Delta \hat{p}\})
+        \end{align*}
+        其中反对易关系
+        \begin{equation*}
+            \{\hat{A}, \hat{B}\} = \hat{A}\hat{B} + \hat{B}\hat{A}
+        \end{equation*}
+        因此
+        \begin{equation*}
+            |\langle \psi |\Delta \hat{x} \Delta \hat{p}|\psi \rangle|^2 = \frac 14 |\langle \psi |[\Delta \hat{x},\Delta \hat{p}]|\psi \rangle + \langle \psi |\{\Delta \hat{x},\Delta \hat{p}\}|\psi \rangle|^2
+        \end{equation*}
+        注意
+        \begin{equation*}
+            [\Delta \hat{x},\Delta \hat{p}] = [\hat{x}-\langle \hat{x} \rangle, \hat{p}-\langle \hat{p} \rangle ] = [\hat{x},\hat{p}] = \mathrm{i}\hbar
+        \end{equation*}
+        上面就是一个复数模的平方，得到
+        \begin{equation*}
+            |\langle \psi |\Delta \hat{x} \Delta \hat{p}|\psi \rangle|^2 = \frac {\hbar^2}4 + \frac 14 |\langle \psi |\{\Delta \hat{x},\Delta \hat{p}\}|\psi \rangle|^2 \geqslant \frac {\hbar^2}4
+        \end{equation*}
+        这是不确定性原理的另一种表述形式。
+
+        现在来在位置空间描述动量本征态，即求出$\langle x|p \rangle$。这表示动量精确地处在$p$时，在位置空间的描述。显然地，它满足
+        \begin{equation*}
+            \langle x|\hat{p}|p\rangle = p\langle x|p \rangle
+        \end{equation*}
+        由此可知 
+        \begin{align*}
+            -\mathrm{i}\hbar \frac {\partial}{\partial x} \langle x|p \rangle = p \langle x|p \rangle
+        \end{align*}
+        解这个常微分方程，得到
+        \begin{equation*}
+            \langle x|p \rangle = C \mathrm{e}^{\frac {\mathrm{i}px}\hbar}
+        \end{equation*}
+        $C$由归一化条件决定。首先考虑
+        \begin{equation*}
+            \langle p' | p_0 \rangle = \delta (p'-p_0)
+        \end{equation*}
+        这是因为
+        \begin{equation*}
+            |p_0 \rangle = \int |p\rangle \langle p|p_0\rangle \mathrm{d}p
+        \end{equation*}
+        显然$\delta$函数满足这个要求。又
+        \begin{equation*}
+            \langle p' | p_0 \rangle = \delta (p'-p_0) = \frac 1{2\pi\hbar} \int \mathrm{e}^{\frac {\mathrm{i}(p-p_0)x}{\hbar}} \mathrm{d}x
+        \end{equation*}
+        并且
+        \begin{align*}
+            \langle p'|p_0 \rangle &= \int \langle p'|x\rangle \langle x|p_0 \rangle \mathrm{d}x\\
+            &= \int (\langle x|p' \rangle)^* \langle x|p_0 \rangle \mathrm{d}x\\
+            &= C^*C\int \mathrm{e}^{\frac {\mathrm{i}(p_0-p')x}{\hbar}} \mathrm{d}x
+        \end{align*}
+        所以， 
+        \begin{equation*}
+            C = \frac 1{\sqrt{2\pi\hbar}}
+        \end{equation*}
+        这样就得到 
+        \begin{equation*}
+            \langle x|p \rangle = \frac 1{\sqrt{2\pi\hbar}} \mathrm{e}^{\frac {\mathrm{i}px}{\hbar}}
+        \end{equation*}
+        并由此可以得到
+        \begin{equation*}
+            \langle p|x \rangle = \frac 1{\sqrt{2\pi\hbar}} \mathrm{e}^{-\frac {\mathrm{i}px}{\hbar}}
+        \end{equation*}
+        \begin{asg}
+            第5次作业第1题：计算动量空间的位置算符。
+        \end{asg}
+        \begin{asg}
+            第5次作业第2题：$\delta$函数算符问题。
+        \end{asg}
+
+    \section{20201116：一维无限深势阱}
+        考虑动能算符和动量算符的对易关系，
+        \begin{equation*}
+            [\frac {\hat{p}^2}{2m}, \hat{p}] = 0
+        \end{equation*}
+        事实上可以证明
+        \begin{equation*}
+            [f(\hat{A}),g(\hat{A})] = 0
+        \end{equation*}
+        \begin{asg}
+            第6次作业第1题（1）：证明上述结论。
+        \end{asg}
+        如果
+        \[ [\hat{A},\hat{B}]=0 \]
+        并设$|\phi_n\rangle$是$\hat{A}$的一个本征态
+        \[ \hat{A} |\phi_n \rangle = a_n |\phi_n \rangle \]
+        那么
+        \[ \hat{A} \hat{B} |\phi_n \rangle = \hat{B}\hat{A} |\phi_n \rangle = a_n \hat{B} |\phi_n \rangle \]
+        这说明，如果$\hat{A},\hat{B}$对易，则$\hat{B}|\phi_n\rangle$必然是$\hat{A}$的本征态，且本征值为$a_n$。如果不简并，那么$\hat{B}|\phi_n\rangle$一定是$\phi_n$的一个倍数，即
+        \begin{equation*}
+            \hat{B}|\phi_n \rangle = b_n |\phi_n \rangle
+        \end{equation*}
+        对于简并的情况，$\hat{B}|\phi_n$只能是所有本征值为$a_n$的本征态的线性组合。也就是说，如果
+        \[ \hat{A}|\phi_{n+m} = a_n |\phi_{n+m},\ m=0,...,k\]
+        并且$\hat{A},\hat{B}$对易，那么
+        \[ \hat{B}|\phi_n \rangle = \sum_{m=0}^k c_m |\phi_{n+m} \rangle \]
+        我们可以再将一个$\hat{B}$算符作用上来，得到
+        \[ \hat{B}\hat{A} \sum_{m=0}^k c_m|\phi_{n+m}\rangle = \hat{A} \hat{B} \sum_{m=0}^k c_m|\phi_{n+m} \rangle = \hat{A} \sum_{m=0}^k c_m'|\phi_{n+m} \rangle \]
+        在简并的情况下，可以通过构造得到$\hat{B}$的本征态。这是因为$\hat{B}$是一个Hermite算符，可以对角化：
+        \[ \bm{U}^\dagger \bm{BU} = \bm{\Lambda} \]
+        可以得到其本征态。
+
+        我们已经讨论过动能算符和动量算符是对易的，如果
+        \[ E_0 = \frac {\hat{p}^2}{2m} \]
+        那么
+        \[ p = \pm \sqrt{2mE_0} \]
+        就是动能算符的两个本征态。也就是说，
+        \[ \frac {p_0^2}{2m} |\psi\rangle = \frac {\hat{p}^2}{2m} (c_+|p_0\rangle + c_-|p_0\rangle) \]
+
+        现在求解一维无限深势阱的能量本征态。其势能算符为
+        \begin{equation*}
+            V(x) = \left \{
+                \begin{aligned}
+                    &0,\ x\in [-\frac L2, \frac L2 ]\\
+                    &\infty, \ \mathrm{otherwise}
+                \end{aligned}
+                \right.
+        \end{equation*}
+        Hamilton算符为
+        \begin{equation*}
+            \hat{H} = \frac {\hat{p}^2}{2m}
+        \end{equation*}
+        波函数只能在$[-\frac L2, \frac L2 ]$区间内，并且边界条件给出
+        \begin{align*}
+            \phi(x = -\frac L2) &= 0\\
+            \phi(x = \frac L2) &= 0
+        \end{align*}
+        应有
+        \begin{align*}
+            \phi_n(x) &= c_+ \langle x|p_n\rangle + c_- \langle x|p_n\rangle\\
+            &= \frac 1{\sqrt{2\pi \hbar}}(c_+\mathrm{e}^{\frac {\mathrm{i}xp_n}{\hbar}}+c_-\mathrm{e}^{-\frac {\mathrm{i}xp_n}{\hbar}})
+        \end{align*}
+        再加上边界条件
+        \begin{align*}
+            c_+\mathrm{e}^{\frac {\mathrm{i}Lp_n}{2\hbar}}+c_-\mathrm{e}^{-\frac {\mathrm{i}Lp_n}{2\hbar}} &= 0\\
+            c_+\mathrm{e}^{-\frac {\mathrm{i}Lp_n}{2\hbar}}+c_-\mathrm{e}^{\frac {\mathrm{i}Lp_n}{2\hbar}} &= 0
+        \end{align*}
+        又有归一化条件
+        \begin{align*}
+            \langle \phi_n | \phi_n \rangle = \int_{-\frac L2}^{\frac L2} |\phi_n(x)|^2 \mathrm{d}x = 1
+        \end{align*}
+        定义算符$\hat{B}$满足
+        \[ \langle x|\hat{B}| p \rangle = \langle x+\lambda |p\rangle \]
+        由于
+        \begin{align*}
+            \langle x|\hat{B}| p \rangle = \langle x+\lambda |p\rangle = \frac {\mathrm{e}^{\frac {\mathrm{i}(x+\lambda)p}{\hbar}}}{\sqrt{2\pi\hbar}}
+        \end{align*}
+        显然地，应有
+        \begin{equation*}
+            \hat{B} = \mathrm{e}^{\frac {\mathrm{i}\lambda \hat{p}}{\hbar}}
+        \end{equation*}
+        这个算符称为\textbf{平移算符}。左矢形式表达为
+        \[ \langle x| \mathrm{e}^{\frac {\mathrm{i}\lambda \hat{p}}{\hbar}} = \langle x+\lambda| \]
+        右矢形式表达为
+        \[ \mathrm{e}^{-\frac {\mathrm{i}\lambda \hat{p}}{\hbar}} | x\rangle = |x+\lambda \rangle \]
+        我们使用平移算符，将一维势阱的体系作平移，将波函数平移到$[0,\frac L2]$的位置上。此时体系满足
+        \begin{equation*}
+            V(x) = \left \{
+                \begin{aligned}
+                    &0,\ x\in [0, L]\\
+                    &\infty, \ \mathrm{otherwise}
+                \end{aligned}
+                \right.
+        \end{equation*}
+        由边界条件
+        \begin{align*}
+            \phi(0)= 0\\
+            \phi(L) = 0
+        \end{align*}
+        得到
+        \begin{align*}
+            c_+ +c_- &= 0\\
+            c_+\mathrm{e}^{\frac {\mathrm{i}Lp_n}{\hbar}}+c_-\mathrm{e}^{-\frac {\mathrm{i}Lp_n}{\hbar}} &= 0
+        \end{align*}
+        将前一个式子代入后一个，得到
+        \[ c_+\mathrm{e}^{\frac {\mathrm{i}Lp_n}{\hbar}}-c_+ \mathrm{e}^{-\frac {\mathrm{i}Lp_n}{\hbar}} = 0 \]
+        于是
+        \begin{align*}
+            2\mathrm{i}c_+ \sin{\frac {Lp_n}{\hbar}} = 0
+        \end{align*}
+        但是$c_+ \neq 0$（否则得到零解），所以
+        \begin{align*}
+            \frac {Lp_n}{\hbar} = n\pi
+        \end{align*}
+        即
+        \[ p_n = \frac {n\pi \hbar}{L} \]
+        $c_+$的选择取决于归一化条件，
+        \[ \int_0^L |c|^2 \sin^2{\frac {n\pi x}L}\mathrm{d}x = 1 \]
+        算出
+        \[ c = \sqrt{\frac 2L} \]
+        于是，一维无限深势阱的解为
+        \[ \langle x|\phi_n \rangle = \sqrt{\frac 2L} \sin{\frac {n\pi x}L} \]
+        本征值为
+        \[ \epsilon_n = \frac {\hbar^2}{2m} \bigg(\frac {n\pi}L\bigg)^2 \]
+        平移回来，得到
+        \[ \langle x|\phi_n \rangle = \sqrt{\frac 2L} \sin{\bigg(\frac {n\pi}L\bigg(x+\frac L2\bigg)\bigg)}, \ n=1,2,3,... \]
+        本征值和平移前一样。
+        \begin{asg}
+            第5次作业第3题（1）：一维无限深势阱能量本征态在动量空间的表示。
+        \end{asg}
+        \begin{asg}
+            第6次作业第1题（2）：动量平移算符。
+        \end{asg}
+
+    \section{20201120：一维势阱求解自由粒子问题}
+        上一节在求解一维无限深势阱的过程中，引入了平移算符。我们想要了解$\mathrm{e}^{\frac {\mathrm{i}\lambda \hat{p}}{\hbar}} \hat{H} \mathrm{e}^{-\frac {\mathrm{i}\lambda \hat{p}}{\hbar}}$的性质。显然地，这是一个Hermite算符，并且新的算符和原来的Hamilton算符$\hat{H}$有相同的本征值。这是因为我们只改变了坐标的选取。
+        \begin{asg}
+            第6次作业第1题（2）：证明这个结论。
+        \end{asg}
+        现在想要来模拟自由粒子，只需要让$L \to \infty$。对于自由粒子，如果给定温度$T$，动量应当满足Boltzmann分布：
+        \[ \rho(p) = \sqrt{\frac {\beta}{2\pi m}}\mathrm{e}^{-\frac {\beta p^2}{2m}} \]
+        计算能量的平均值
+        \[ \langle \frac {p^2}{2m} \rangle = \frac 1{2\beta} \]
+
+        如果
+        \[ \hat{H} | \phi_n \rangle = \epsilon_n |\phi_n \]
+        那么显然有
+        \[ f(\hat{H})|\phi_n \rangle = f(\epsilon_n)|\phi_n \]
+        定义Boltzmann算符$\mathrm{e}^{-\beta\hat{H}}$, 并且定义配分函数为
+        \[ Z = \mathrm{Tr}\  \mathrm{e}^{-\beta \hat{H}} = \sum_n \langle n| \mathrm{e}^{-\beta \hat{H}} | n \rangle = \sum_n \mathrm{e}^{-\beta \epsilon_n }\]
+        那么这个配分函数是否收敛呢？
+        \[ Z = \sum_n \mathrm{e}^{-\beta \frac {\hbar^2}{2m} (\frac {n\pi}L)^2} \]
+        定义$x_n = \frac nL$, 于是$\Delta x = \frac 1L$. 由此可以将求和变成积分。
+        \begin{align*}
+            Z &= L \sum_n \Delta x \mathrm{e}^{-\beta \frac {\hbar^2\pi^2 x^2}{2m} }\\
+            &= L \int_0^{+\infty} \mathrm{e}^{-\beta \frac {\hbar^2\pi^2 x^2}{2m}} \mathrm{d}x\\
+            &= L\sqrt{\frac m{2\pi \beta \hbar^2}}
+        \end{align*}
+        或者我们定义
+        \[ \mathrm{Tr} \ \mathrm{e}^{-\frac {\beta \hat{p}^2}{2m}} = \int \mathrm{e}^{-\frac {\beta p^2}{2m}} \langle p|p\rangle \mathrm{d}p \]
+        发现这里并不好处理，只能知道该值为$\infty$, 但不能给出具体的表达形式。这就是我们使用一维无限深势阱来近似自由粒子的原因。
+
+        有了一维形式的配分函数，类比得到三维粒子为
+        \[ Z = V \bigg(\frac m{2\pi \beta \hbar^2}\bigg)^{\frac 32} \]
+
+        有了配分函数可以得到一维情况下能量的平均值：
+        \begin{align*}
+            \langle \hat{H} \rangle &= \frac {\mathrm{Tr} \ (\mathrm{e}^{-\beta \hat{H}} \hat{H})}Z
+            = \frac {\sum_n \epsilon_n \mathrm{e}^{-\beta \epsilon_n}}{\sum_n \mathrm{e}^{-\beta \epsilon_n}}
+            = -\frac {\partial}{\partial \beta} \ln{Z}
+        \end{align*}
+        将配分函数代入得到
+        \[ \langle \hat{H} \rangle = \frac 1{2\beta} \]
+        该结果和经典情况得到的结果是一致的。得到结论，自由粒子的体系经典和量子力学的结果是一致的。
+        \begin{asg}
+            第5次作业第3题（3）：能量涨落的计算
+        \end{asg}
+        \begin{asg}
+            第5次作业第3题（4）：比热的计算
+        \end{asg}
+        \begin{asg}
+            第5次作业第3题（5）：用一维势阱求解共轭体系
+        \end{asg}
+
+    \section{20201123：用一维势阱模型展开其他势能体系}
+        我们解出了一维势阱能量本征态在位置空间的描述，现在要求在动量空间的描述：
+        \[ \langle p|\phi_n \rangle = \int \langle p|x \rangle \langle x |\phi_n \rangle \mathrm{d}x \]
+
+        两个有限维矩阵乘积的求迹：
+        \begin{equation*}
+            \mathrm{Tr} \ (\bm{AB}) = \mathrm{Tr} \ (\bm{BA})
+        \end{equation*}
+        证明是显然的，只需要直接展开
+        \begin{align*}
+            \mathrm{Tr} \ (\bm{AB}) &= \sum_i (\bm{AB})_{ii}
+            = \sum_i \sum_k a_{ik}b_{ki}
+            = \sum_k \sum_i b_{ki}a_{ik}
+            = \sum_k \bm{(BA)}_{kk}
+            = \mathrm{Tr} \ (\bm{BA})
+        \end{align*}
+        但对于无限维的，必须保证二重级数绝对收敛才能够交换次序才能成立。
+        \begin{asg}
+            第5次作业第3题(2)：位置算符和动量算符乘积交换后迹是否相等？
+        \end{asg}
+
+        一维无限深势阱的能级差会随着$n$的增大而增大。
+        \[ \Delta \epsilon = \frac {\hbar^2}{2m} \bigg(\frac {n\pi}L \bigg)^2 (2n+1) \]
+        虽然如此，我们仍可以用一维无限深势阱的能量本征态来对其他的体系进行研究。比如一个势能算符为$\hat{V}'$时，势能矩阵元为
+        \[
+            \langle \phi_k | \hat{V}' | \phi_n \rangle = \int_{-\frac L2}^{+\frac L2} \phi_k^*(x) V(x) \phi_n(x) \mathrm{d}x 
+        \]
+        但是动能算符和原来是一样的。
+        \[
+            \langle \phi_k | \frac {\hat{p^2}}{2m} | \phi_n \rangle = \delta_{kn} \frac {\hbar^2}{2m} \bigg( \frac {\pi}L \bigg)^2 n^2
+        \]
+        由此可以得到Hamilton算符的矩阵元$\langle \phi_k | \hat{H} | \phi_n \rangle$，将它对角化就可以用来展开其他势能下的能量本征态。
+        \begin{asg}
+            第6次作业第2题：用一维无限深势阱展开一维谐振子的能量本征态和四次势的本征态。
+        \end{asg}
+
+        我们进入下一个话题：求解一维谐振子体系。一维谐振子的势能函数为
+        \[ V(x) = \frac 12 m\omega^2x^2 \]
+        Hamilton算符为
+        \[ \hat{H} = \frac {\hat{p}^2}{2m} + \frac 12 m\omega^2 \hat{x}^2 \]
+        类比复数域的
+        \[ a^2 + b^2 = (a+b\mathrm{i})(a-b\mathrm{i}) \]
+        对于数字这样分解是可以的，但是对于算符来说，只有对易的算符才成立。先考虑数字的情况
+        \[ \frac {p^2}{2m} + \frac 12 m\omega^2 x^2 = \frac 12 (\frac p{\sqrt{m}} + \mathrm{i}\sqrt{m}\omega x)(\frac p{\sqrt{m}} - \mathrm{i}\sqrt{m}\omega x) \]
+        可以先把能量$\hbar \omega$提出来，这样就可以操作里面的没有量纲的算符，会更方便一些。
+
+    \section{20201127：一维谐振子的求解（1）}
+        继续讨论一维谐振子的求解问题。定义算符
+        \[ \hat{c} = \frac {\hat{p}}{\sqrt{2m}} + \mathrm{i}\sqrt{\frac m2}\omega \hat{x} \]
+        算符的对易满足如下性质：
+        \begin{align*}
+            [\hat{A}+\hat{B},\hat{C}] &= [\hat{A},\hat{C}]+[\hat{B},\hat{C}]\\
+            [\alpha \hat{A}, \beta \hat{B}] &= \alpha \beta [\hat{A},\hat{B}]\\
+            [\hat{A}\hat{B},\hat{C}] &= \hat{A}[\hat{B},\hat{C}] + [\hat{A},\hat{C}]\hat{B}
+        \end{align*}
+        \begin{asg}
+            第6次作业第3题（1）：证明上述结论
+        \end{asg}
+        可以计算
+        \begin{align*}
+            [\hat{c},\hat{c}^\dagger] &= [d_1\hat{p} +\mathrm{i}d_2\hat{x}, d_1\hat{p} - \mathrm{i}d_2\hat{x}]\\
+            &= [d_1\hat{p}, d_1\hat{p} - \mathrm{i}d_2\hat{x}] + [\mathrm{i}d_2\hat{x}, d_1\hat{p} - \mathrm{i}d_2\hat{x}]\\
+            &= [d_1\hat{p}, -\mathrm{i}d_2\hat{x}] + [\mathrm{i}d_2\hat{x}, d_1\hat{p}]\\
+            &= -\mathrm{i}d_1d_2[\hat{p},\hat{x}] + \mathrm{i}d_1d_2[\hat{x},\hat{p}]\\
+            &= -2d_1d_2\hbar\\
+            &= -\hbar \omega
+        \end{align*}
+        为了让算符无量纲化，定义
+        \begin{align*}
+            \hat{a} = \frac {\hat{c}}{\sqrt{\hbar \omega}} =\frac 1{\sqrt{2}} \bigg(\frac {\hat{p}}{\sqrt{m\hbar\omega}} + \mathrm{i}\sqrt{\frac {m\omega}{\hbar}} \hat{x}\bigg)
+        \end{align*}
+        \begin{asg}
+            第6次作业第3题（2）：证明$\hat{a}\hat{a}^\dagger$和$\hat{a}^\dagger\hat{a}$都是Hermite算符。
+        \end{asg}
+        显然
+        \[ [\hat{a},\hat{a}^\dagger] = \hat{a}\hat{a}^\dagger - \hat{a}^\dagger \hat{a} =  -1 \]
+        可以用$\hat{a}$写出Hamilton算符：
+        \[ \hat{H} = \frac {\hbar \omega}2 (\hat{a}\hat{a}^\dagger + \hat{a}^\dagger \hat{a}) \]
+        可以计算
+        \begin{align*}
+            [\hat{a}^\dagger\hat{a}, \hat{a}\hat{a}^\dagger] &= \hat{a}^\dagger [\hat{a},\hat{a}\hat{a}^\dagger] +  [\hat{a}^\dagger,\hat{a}\hat{a}^\dagger]\hat{a}\\
+            &= \hat{a}^\dagger\hat{a}[\hat{a},\hat{a}^\dagger] + [\hat{a}^\dagger,\hat{a}]\hat{a}^\dagger \hat{a}\\
+            &= 0
+        \end{align*}
+        \begin{asg}
+            第6次作业第3题（3）：证明
+            \[ \hat{H} = \frac {\hbar \omega}2 (\hat{a}\hat{a}^\dagger + \hat{a}^\dagger \hat{a}) \]
+        \end{asg}
+        上面结果也给出了
+        \[ \hat{a}^\dagger\hat{a} = \hat{a}\hat{a}^\dagger + 1 \]
+        于是
+        \[ \hat{H} = \hbar \omega\bigg(\hat{a}\hat{a}^\dagger + \frac 12\bigg)\]
+        现在定义
+        \[ \hat{b} = \frac 1{\sqrt{2}}\bigg(\sqrt{\frac {m\omega}{\hbar}}\hat{x} + \frac {\mathrm{i}\hat{p}}{\sqrt{m\omega\hbar}}\bigg) \]
+        用相同的方法得到 
+        \[ \hat{H} = \hbar \omega\bigg(\hat{b}^\dagger\hat{b}+ \frac 12\bigg) \]
+        并且
+        \[ [\hat{b}, \hat{b}^\dagger] = 1 \]
+        定义
+        \[ \hat{N} = \hat{b}^\dagger\hat{b} \]
+        于是
+        \[ \hat{H} = \hbar \omega \bigg(\hat{N}+\frac 12\bigg) \]
+        因此 
+        \[ [\hat{N},\hat{H}] = 0 \]
+        两个对易的算符有相同的本征态。假设
+        \[ \hat{N}|\phi_n \rangle = \lambda_n |\phi_n \rangle \]
+        则
+        \begin{align*}
+            \hat{H}|\phi_n \rangle = \bigg(\hat{N}+\frac 12\bigg)\hbar\omega|\phi_n \rangle = \bigg(\lambda_n + \frac 12\bigg)\hbar\omega|\phi_n\rangle
+        \end{align*}
+        并且
+        \[ \langle \phi_n|\hat{N}|\phi_n \rangle = \lambda_n \langle \phi_n |\phi_n \rangle = \lambda_n \]
+        而
+        \[ \langle \phi_n|\hat{N}|\phi_n \rangle =  \langle \phi_n |\hat{b}^\dagger\hat{b}|\phi_n \rangle = \lambda_n \]
+        令
+        \[ |\psi_n \rangle = \hat{b}|\phi_n\rangle \]
+        那么
+        \[ \langle \phi_n|\hat{N}|\phi_n \rangle =  \langle \phi_n |\hat{b}^\dagger\hat{b}|\phi_n \rangle = \langle \psi_n|\psi_n \rangle = \lambda_n \geqslant 0 \]
+        这样证明了$\hat{N}$的本征值必然是非负数。
+
+        那么$|\psi_n\rangle$是否仍然是$\hat{N}$的本征态呢？计算
+        \begin{align*}
+            \hat{N}|\psi_n\rangle = \hat{b}^\dagger\hat{b}^2|\phi_n\rangle = (\hat{b}\hat{b}^\dagger\hat{b}- \hat{b})|\phi_n\rangle = \hat{b}(\hat{N}-\hat{I})|\phi_n\rangle = (\lambda_n-1)\hat{b}|\phi_n\rangle = (\lambda_n - 1)|\psi_n\rangle
+        \end{align*}
+        这说明$\hat{b}$作用于$\hat{N}$的本征态以后得到的态仍然是$\hat{N}$的本征态，且本征值减少1. 于是可以设
+        \[ \hat{b}|\phi_n\rangle = |\psi_n\rangle = \sqrt{\lambda_n}|\phi_m\rangle \]
+        将$\hat{N}$作用上来，得到
+        \[ \hat{N}\sqrt{\lambda_n}|\phi_m \rangle = \sqrt{\lambda_n}(\lambda_n-1)|\phi_m\rangle \]
+        这构造了一个循环，将$\hat{b}$作用在$\hat{N}$的本征态上，得到一个新的$\hat{N}$的本征态，且$\hat{N}$的本征值减少1，并且它仍然是非负的。依次类推，总会有一个态$\hat{N}$的本征值为0，且$\hat{N}$的本征值都是整数。如果$\hat{N}$的本征值为0，此时如果再用$\hat{b}$作用，则得到零向量。所以
+        \[ \hat{N}|\phi_n \rangle = n|\phi_n\rangle \]
+        故将$\hat{N}$称为\textbf{数值算符}。
+
+    \section{20201130：一维谐振子的求解（2）}
+        一维谐振子在通过$\hat{b}$算符的作用时，$\hat{N}$的本征值下降1，故吧$\hat{b}$称为\textbf{下降算符}。最终本征值下降到0时，应有
+        \[ \hat{b}|\phi_0 \rangle = 0 \]
+        可以推出
+        \[ \hat{N}|\phi_0 \rangle = 0 \]
+        求解
+        \[ \langle x|\hat{b}|\phi_0 \rangle = 0\]
+        将$\hat{b}$的定义代入，得到
+        \begin{align*}
+            \langle x|\sqrt{\frac 12}\bigg(\sqrt{\frac {m\omega}{\hbar}}\hat{x}+ \frac {\mathrm{i}\hat{p}}{\sqrt{m\omega\hbar}}\bigg)|\phi_0 \rangle = 0
+        \end{align*}
+        解得
+        \[ \langle x|\phi_0\rangle = \bigg(\frac {m\omega}{\pi\hbar} \bigg)^{\frac 14} \mathrm{e}^{-\frac {m\omega}{2\hbar}x^2} \]
+        求出基态的能量
+        \[ \hat{H}|\phi_0 \rangle = \frac 12 \hbar \omega |\phi_0 \rangle \]
+        基态也有一定的能量，称为\textbf{零点能}。
+
+        现在研究一下$\hat{b}^\dagger$作用于$\hat{N}$的本征态上。
+        \begin{align*}
+            \hat{N}\hat{b}^\dagger |\phi_n \rangle = (\hat{b}^\dagger \hat{b})\hat{b}^\dagger |\phi_n \rangle = \hat{b}^\dagger (\hat{b}^\dagger\hat{b}+\hat{I})|\phi_n \rangle = (\lambda_n+1) \hat{b}^\dagger |\phi_n \rangle
+        \end{align*}
+        所以，$\hat{b}^\dagger$作用在$\hat{N}$的本征态上还会得到$\hat{N}$的本征态，会使得$\hat{N}$的本征值上升1，于是将$\hat{b}^\dagger$称为\textbf{上升算符}。
+
+        同理可以得到
+        \[ \hat{b}^\dagger|\phi_n\rangle = \sqrt{\lambda_n+1}|\phi_m\rangle \]
+        如果想要得到各个激发态的波函数，可以通过用$\hat{b}^\dagger$不断作用在基态的波函数上面：
+        \[ |\phi_n \rangle = \frac 1{\sqrt{n!}} \hat{b}^{\dagger n} | \phi_0 \rangle \]
+
+        \begin{asg}
+            第6次作业第4题：求出一维谐振子的第$n$个能级的波函数及其势能。
+        \end{asg}
+
+    \section{20201204：时间演化算符}
+        前面我们用一维无限深势阱来展开不同的势能函数，有了一维谐振子的解我们也可以用一维谐振子的解来展开其他势能函数的情况。
+
+        有了一维谐振子的解，我们可以拓展到多维，类比之前的简谐振动分析，得到能量的本征值为
+        \[ E = \sum_{j=1}^F \bigg(n_j+\frac 12\bigg)\hbar \omega_j \]
+        在简正坐标下的波函数为
+        \[ \langle \bm{Q}|\psi \rangle = \prod_{j=1}^F \langle Q_j | \phi_{n_j} \rangle \]
+        其中
+        \[ \langle Q_j|\phi_{n_j} \rangle = \bigg(\frac {\omega}{\pi \hbar}\bigg)^{\frac 14} \mathrm{e}^{-\frac {\omega_j}{2\hbar} Q_j^2} \]
+        注意此处没有质量，因为它被概率在简正坐标变换时引入的Jacobi行列式约掉了。
+
+        如果Hamilton函数为两个Hamilton函数之和
+        \[ \hat{H} = \hat{H}_1 + \hat{H}_2 \]
+        设它们本征态为$\phi_{n_1}^{(1)}$和$\phi_{n_2}^{(2)}$
+        于是
+        \[\hat{H} |\phi_{n_1}^{(1)} \rangle |\phi_{n_2}^{(2)} = \epsilon_{n_1}|\phi_{n_1}^{(1)} \rangle \otimes |\phi_{n_2}^{(2)} + \epsilon_{n_2}|\phi_{n_2}^{(2)} \rangle \otimes |\phi_{n_1}^{(1)} = (\epsilon_{n_1}+\epsilon_{n_2})|\phi_{n_1}^{(1)} \rangle \otimes |\phi_{n_2}^{(2)}\]
+        更普遍地，对于多维谐振子，应有
+        \[ \hat{H} = \sum_{j=1}^F \hat{H}_j \]
+        其中 
+        \[ \hat{H}_j = \frac 12 \hat{P}_j^2 + \frac 12 \omega_j^2 Q_j^2 \]
+
+        如果我们已知了
+        \[ \hat{H}|\phi_n\rangle = \epsilon_n|\phi_n\rangle \]
+        那么
+        \[ \mathrm{e}^{-\frac {\mathrm{i}\hat{H}t}{\hbar}}|\phi_n\rangle = \mathrm{e}^{-\frac {\mathrm{i}\epsilon_n t}{\hbar}}|\phi_n\rangle \]
+        含时的Schrodinger方程为
+        \[ \mathrm{i}\hbar \frac {\partial}{\partial t}|\psi(t)\rangle = \hat{H} |\psi(t)\rangle \]
+        注意时间在量子力学中并没有算符，而是一个参量。由含时的Schrodinger方程可以推出
+        \[ \mathrm{e}^{-\frac {\mathrm{i}\hat{H}t}{\hbar}}|\psi(0)\rangle = |\psi(t) \rangle \]
+        所以把$\mathrm{e}^{-\frac {\mathrm{i}\hat{H}t}{\hbar}}$称为\textbf{时间演化算符}。可以得到任意物理量在时间$t$的平均值 
+        \[ \langle \hat{B}(t) \rangle = \langle \psi(t)|\hat{B} | \psi(t) \rangle = \langle \psi(0) |\mathrm{e}^{\frac {\mathrm{i}\hat{H}t}{\hbar}} \hat{B} \mathrm{e}^{-\frac {\mathrm{i}\hat{H}t}{\hbar}}|\psi(0) \rangle \]
+        定义$\mathrm{e}^{\frac {\mathrm{i}\hat{H}t}{\hbar}} \hat{B} \mathrm{e}^{-\frac {\mathrm{i}\hat{H}t}{\hbar}}$为算符$\hat{B}$的\textbf{Heisenberg算符}.
+
+        时间演化算符可以写在能量本征态上
+        \[ \mathrm{e}^{-\frac {\mathrm{i}\hat{H}t}{\hbar}} = \sum_n \mathrm{e}^{-\frac {\mathrm{i}\epsilon_n t}{\hbar}} |\phi_n \rangle \langle\phi_n| \]
+        代入，得到 
+        \begin{align*}
+            \langle \hat{B}(t) \rangle &= \langle \psi(t)|\hat{B} | \psi(t) \rangle\\
+            &= \langle \psi(0) |\mathrm{e}^{\frac {\mathrm{i}\hat{H}t}{\hbar}} \hat{B} \mathrm{e}^{-\frac {\mathrm{i}\hat{H}t}{\hbar}}|\psi(0) \rangle\\
+            &= \langle \psi(0) |\sum_n \mathrm{e}^{\frac {\mathrm{i}\epsilon_n t}{\hbar}} |\phi_n \rangle \langle\phi_n|\hat{B}|\sum_m \mathrm{e}^{-\frac {\mathrm{i}\epsilon_m t}{\hbar}} |\phi_m \rangle \langle\phi_m|\psi(0)\rangle\\
+            &= \sum_{m,n} \langle \psi(0)|\phi_n\rangle \langle \phi_n|\hat{B}|\phi_m \rangle \langle \phi_m|\psi(0)\rangle \mathrm{e}^{\frac {\mathrm{i}(\epsilon_n-\epsilon_m)t}{\hbar}}
+        \end{align*}
+        \begin{asg}
+            第7次作业第1题：高维谐振子$t$时刻的物理量
+        \end{asg}
+
+    \section{20201207：一维谐振子经典和量子处理的比较}
+    \begin{asg}
+        第7次作业第2题：高维谐振子的时间自关联函数计算
+    \end{asg}
+
+    光谱的定义为
+    \[ I(\omega) = \int_{-\infty}^{+\infty} \langle \hat{A}(0)\hat{A}(t)\rangle \mathrm{e}^{\frac {\mathrm{i}\omega t}{\hbar}} \mathrm{d}t \]
+    如果$\hat{A} = \hat{M}$则为红外光谱；如果$\hat{A} = \hat{\beta}$则为Raman光谱。
+
+    我们比较一下谐振子的经典和量子描述。经典配分函数为
+    \[ Z_\mathrm{cl} = \int \mathrm{e}^{-\beta H(x,p)}\frac {\mathrm{d}x\mathrm{d}p}{2\pi\hbar} = \frac 1{\beta\hbar\omega} \]
+    量子体系的配分函数为
+    \[ Z_\mathrm{Q} = \mathrm{Tr} \ \mathrm{e}^{-\beta \hat{H}} = \sum_n \mathrm{e}^{-\beta\epsilon_n} = \frac 1{2\sinh{\frac {\beta\hbar\omega}2}} \]
+    这两个结果在$\beta\hbar\omega \to 0$时是一致的。如果
+    $\beta \to 0$则对应高温极限；$\hbar \to 0$对应经典极限；$\omega \to 0$对应能级差很小，也逼近经典情况。
+    根据$m\omega^2 = k$, 增大约化质量会使得$\omega$减小，这就是同位素效应。
+
+    有了配分函数就可以求出各个热力学函数。定义
+    \[ u = \beta\hbar\omega \]
+    自由能为
+    \begin{align*}
+        F_\mathrm{cl} &= -\frac 1{\beta} \ln{Z_\mathrm{cl}} = \frac 1{\beta} \ln{u}\\
+        F_\mathrm{Q} &= -\frac 1{\beta} \ln{Z_\mathrm{Q}} = \frac 1{\beta}\ln{\sinh{\frac u2}}+ \frac {\ln{2}}{\beta}
+    \end{align*}
+    熵为
+    \begin{align*}
+        S_\mathrm{cl} &= -\bigg(\frac {\partial F_{\mathrm{cl}}}{\partial T}\bigg)_V = -k_B \ln{u} + k_B\\
+        S_\mathrm{Q} &= -\bigg(\frac {\partial F_{\mathrm{Q}}}{\partial T}\bigg)_V = -k_B \ln{\sinh{\frac u2}} + \frac {k_Bu}2 \coth{\frac u2} - k_B \ln{2}
+    \end{align*}
+    内能为
+    \begin{align*}
+        U_\mathrm{cl} &= -\frac {\partial}{\partial \beta}\ln{Z_\mathrm{cl}} = \frac 1{\beta}\\
+        U_\mathrm{Q} &= -\frac {\partial}{\partial \beta}\ln{Z_\mathrm{Q}} = \frac {u}{2\beta} \coth{\frac u2}
+    \end{align*}
+    热容为
+    \begin{align*}
+        C_{V\mathrm{cl}} = -k_B \beta^2 \bigg(\frac {\partial U_\mathrm{cl}}{\partial T}) &= k_B\\
+        C_{V\mathrm{Q}} = -k_B \beta^2 \bigg(\frac {\partial U_\mathrm{Q}}{\partial T}) &= k_B \frac {(\frac u2)^2}{\sinh^2{\frac u2}}
+    \end{align*}
+    定义\textbf{量子校正因子}
+    \[ Q(\frac u2) = \frac u2 \coth{\frac u2} \]
+    于是 
+    \[ \langle \hat{H} \rangle = U = \frac {Q(\frac u2)}{\beta} \]
+    当$u \to 0$, $Q(\frac u2) \to 1$，接近经典结果；当$u \to +\infty$，$\frac {Q(\frac u2)}{\frac u2} \to 1$, 于是
+    \[U \to \frac {\hbar \omega}2 \]
+    能量即为零点能，即都聚集在基态。
+
+    对于热容，如果$u \to +\infty$则有$C_V \to 0$
+
+    \bibliographystyle{plain}
+    \bibliography{ref_chp_7}
+

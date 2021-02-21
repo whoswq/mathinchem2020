@@ -20,15 +20,17 @@ chapter 3 : Liouville 方程
 
 chapter 4 : 多自由度的小振动
 
-chapter 5 : Gauss 积分的计算
+chapter 5 : 时间关联函数
 
-chapter 6 : Hamilton 力学与量子力学的算符形式
+chapter 6 : Gauss 积分的计算
 
-chapter 7 : Lagrange 力学与量子力学的路径积分形式
+chapter 7 : Hamilton 力学与量子力学的算符形式
 
-chapter 8 : Bohmain 动力学
+chapter 8 : Lagrange 力学与量子力学的路径积分形式
 
-chapter 9 : 量子力学的相空间表述
+chapter 9 : Bohmain 动力学
+
+chapter 10 : Winger 函数
 
 
 
