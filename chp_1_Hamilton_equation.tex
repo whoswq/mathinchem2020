@@ -1,103 +1,310 @@
 \chapter{Hamilton 运动方程}
-    \section{20200925：正则方程}
-    经典力学中常用的独立变量为位置$x$和动量$p$, 且满足关系
-    \begin{align*}
+    \section{牛顿运动方程}
+    \subsection{牛顿运动方程及保守系统}
+    \par
+    这里抛开经典力学的时空观和经典力学的相对性原理（即经典力学中的物理规律在
+    伽利略变换下不变）不谈，关注经典力学的另一个特征——决定性。实验事实（指一定精度下
+    的实验，完全有可能被更为精确的实验所推翻）告诉我们对于一个封闭的力学系统，
+    其初始位置$\bm{x}(t_0)$和初始速度$\dot{\bm{x}}(t_0)$的情况下可以唯一确定这个
+    系统今后的运动状态。
+    \par 既然对于一个力学系统其初始位置和初始速度可以决定其运动状态，那么它们也决定了系统
+    任意时刻的加速度，即存在一个函数$\bm{F}$使得：
+    \begin{equation}
+        m\ddot{\bm{x}} = \bm{F}(\bm{x}, \dot{\bm{x}}, t)
+    \end{equation}
+    由微分方程解的存在唯一性定理，若已知$\bm{x}(t_0),\, \dot{\bm{x}}(t_0)$与$\mb{F}$
+    则上述微分方程唯一确定了一个运动。函数$F$的形式要通过实验来确定，如果确定了其形式，
+    那么就知道了对应力学系统的运动方程。
+    \par 如果一个力学系统的运动方程可以写为：
+    \begin{equation}
+        m\ddot{\bm{x}} = -\pdv{V(\bm{x})}{\bm{x}}
+    \end{equation}
+    这样的力学系统称为保守系统。一个完全等价的说法是，在外力场中运动的系统，外力
+    对其所做的功与路径无关，只与起点和终点有关；用数学语言描述，对于位形空间中的任何一条
+    闭合的光滑曲线$C$，下式成立：
+    \begin{equation}
+        \int_{C}\bm{F}\cdot\d \bm{r} = 0
+    \end{equation}
+    可以证明，若上述条件满足，那么存在一个函数$U(\bm{x})$使得$\bm{F} = -\nabla U(\bm{x})$，
+    这样的系统为保守系统。一般而言，我们讨论的系统都属于保守系统，比如重力场、中心力场等。
+    \par 
+    保守系统中的势能函数很大程度上决定了系统的性质，其中最基本的是势能的对称性确保了力学
+    系统中的一些守恒量。下面仅用势能的时间平移不变性（势函数不显含时间）来说明系统的能量
+    守恒。能量被定义为：
+    \begin{equation}
+        E = T + V = \frac{1}{2}m\dot{\bm{x}}^2 + V(x)
+    \end{equation}
+    考虑$E$对时间的全导数，即考虑一个真实路径$\bm{x}(t)$上$E$对时间的导数（带入
+    运动方程）：
+    \begin{equation}
+        \begin{split}
+            \dv{E}{t} & = m\ddot{\bm{x}}\dot{\bm{x}} + \dv{V(\bm{x}(t))}{t}\\
+            & = - \pdv{V(\bm{x})}{\bm{x}} \cdot \dot{\bm{x}} + \pdv{V(\bm{x})}{\bm{x}}
+            \cdot \dot{\bm{x}}\\
+            & = 0
+        \end{split}
+    \end{equation}
+    这就说明在运动过程中能量$E$是一个守恒量。（类似的还有势能的平移对称性对应的动量守恒和
+    旋转对称性对应的角动量守恒，这提示我们势能的对称性和守恒量之间存在对应关系）
+    \subsection{使用牛顿方程解决问题}
+    牛顿方程是一个二阶微分方程，对于高阶微分方程，一般的研究方法是将其化为一阶微分方程组。
+    在这里仅考虑一维系统，引入物理中具有重要意义的量——动量：$\bm{p} := \frac{\dot{\bm{x}}}{m}$，
+    将牛顿方程转化为一个微分方程组（此时动量$\bm{p}$与位置$\bm{x}$为独立的变量）：
+    \begin{equation}
         \dot{x} = \frac pm\\
         \dot{p} = -\frac {\partial V}{\partial x}
-    \end{align*}
-
-    首先研究HCl分子。每个原子的坐标有3个自由度，总共是6个自由度。而这个分子总体有3个平动自由度，2个转动自由度，还剩余1个振动自由度。振动自由度的能量由\textbf{势能面}来描述。势能面是两个原子的距离$r$的函数，且
-    \begin{equation*}
+    \end{equation}
+    \par
+    首先研究HCl分子。每个原子的坐标有3个自由度，总共是6个自由度。而这个分子总体有3个平动自由度，
+    2个转动自由度，还剩余1个振动自由度。振动自由度的能量由\textbf{势能面}来描述
+    \footnote{按照笔记修改者的理解，势能面应该是体系势能与坐标之间的函数关系。对于二体问题而言，
+    仅用势能面来描述系统振动自由度的势能是不合适的，它忽略了转动对于振动的影响。如果严格处理这个问题，
+    首先在相对位置坐标（直接采用极坐标$(r, \phi)$，其中$\mu$为折合质量）下写出能量守恒的表达式：
+    \begin{equation}
+        E = \frac{1}{2}\mu\left(\dot{r}^2 + r^2\dot{\phi}^2\right) + V(r)
+    \end{equation}
+    考虑到中心力场中角动量守恒，即$J = \mu r^2 \dot{\phi}$是一个守恒量，带入能量守恒的表达式：
+    \begin{equation}
+        E = \frac{1}{2}\mu\left(\dot{r}^2 + \frac{J^2}{\mu^2r^2}\right) + V(r)
+    \end{equation}
+    将上式对时间求导后就会得到径向运动方程：
+    \begin{equation}
+        \mu \ddot{r} - \frac{J^2}{\mu r^3} + \pdv{V}{r} = 0
+    \end{equation}
+    可以看出，只有在不考虑转动时（角动量很小或者为0）才是正文中所讨论的情况
+    }
+    。势能面是两个原子的距离$r$的函数，满足
+    \begin{equation}
         \lim_{r \to \infty} V(r) = 0
-    \end{equation*}
-    当$r$减小时，势能逐渐减小，有一个极小值，对应的两原子距离称为平衡位置$r_\mathrm{eq}$, 然后再减小$r$时，势能增大，最后达到
-    \begin{equation*}
+    \end{equation}
+    当$r$减小时，势能逐渐减小，有一个\textbf{极小值}，对应的两原子距离称为平衡位置$r_\mathrm{eq}$, 然后再减小$r$时，势能增大，最后达到
+    \begin{equation}
         \lim_{r \to 0^+} V(r) = +\infty
-    \end{equation*}
-
-    实际上在平衡位置附近，我们把这个振动自由度近似为谐振子模型。通过改变势能零点的定义，我们总可以把势能写为
-    \begin{equation*}
-        V(r) = \frac 12 k(r-r_\mathrm{eq})^2
-    \end{equation*}
+    \end{equation}
+    这与两个原子的间距不能无穷近是一致的。
+    实际上在平衡位置附近，我们把势能函数用二次函数近似\footnote{
+        将势能函数在平衡位置Taylor展开，保留到二阶（除非没有二阶项）
+    }（即将真实的物理系统想象成为谐振子）。
+    通过改变势能零点的定义，我们总可以把势能写为
+    \begin{equation}
+        V(r) = \frac{1}{2}k(r-r_\mathrm{eq})^2
+    \end{equation}
     根据势能的形式可以写出力的形式
-    \begin{equation*}
+    \begin{equation}
         F = -\frac {\partial V}{\partial r} = -k(r-r_\mathrm{eq})
-    \end{equation*}
+    \end{equation}
     做变换$x = r - r_\mathrm{eq}$, 可以将势能写为
-    \begin{equation*}
+    \begin{equation}
         V(x) = \frac 12 kx^2
-    \end{equation*}
-    也可以将位置和动量对时间导数写为
-    \begin{align*}
-        \dot{x} = \frac pm\\
-        \dot{p} = -kx
-    \end{align*}
+    \end{equation}
+    带入牛顿运动方程，得到关于位置和动量的微分方程组：
+    \begin{equation}
+        \begin{split}
+            \dot{x} &= \frac pm\\
+            \dot{p} &= -kx
+        \end{split}
+    \end{equation}
     现在求解这个运动方程：
-    \begin{align*}
+    \begin{equation}
         \ddot{x} = \frac {\dot{p}}m = -\frac {kx}{m}
-    \end{align*}
-    这是一个二阶常微分方程，求解得到通解
-    \begin{align*}
-        x &= A \cos{\omega t} + B \sin{\omega t}\\
-        p &= -{Am\omega} \sin{\omega t} + {Bm \omega} \cos{\omega t}
-    \end{align*}
-    其中$\omega = \sqrt{\frac km}$. 如果给定初始条件
-    \begin{align*}
+    \end{equation}
+    这是一个二阶常微分方程，通解为：
+    \begin{equation}
+        \begin{split}
+            x &= A \cos{\omega t} + B \sin{\omega t}\\
+            p &= -{Am\omega} \sin{\omega t} + {Bm \omega} \cos{\omega t}
+        \end{split}
+    \end{equation}
+    其中$\omega = \sqrt{\frac km}$. 如果给定初始条件：
+    \begin{equation}
         x(0) = x_0\\
         p(0) = p_0
-    \end{align*}
-    将这两个方程代入到通解中，得到
-    \begin{align*}
-        x &= x_0 \cos{\omega t} + \frac {p_0}{m\omega} \sin{\omega t}\\
-        p &= p_0 \cos{\omega t} - {m\omega x_0} \sin{\omega t}
-    \end{align*}
-
-    体系的Hamilton函数为
-    \begin{align*}
-        H(x,p,t) &= \frac {p^2}{2m} + V(x)
-    \end{align*}
-    现在希望验算
-    \begin{align*}
-        H(x,p,t) = H(x,p,0),~~~~~\forall t
-    \end{align*}
-    为了证明这个成立，首先可以推导\textbf{正则方程}：
-    \begin{align*}
+    \end{equation}
+    将这两个方程代入到通解中，得到：
+    \begin{equation}
+        \begin{split}
+            x &= x_0 \cos{\omega t} + \frac {p_0}{m\omega} \sin{\omega t}\\
+            p &= p_0 \cos{\omega t} - {m\omega x_0} \sin{\omega t}
+        \end{split}
+    \end{equation}
+    \section{Hamilton 正则方程}
+    \subsection{Hamilton 方程的导出和性质}
+    前面已经看到，我们通过定义\textbf{动量}为独立变量的方式，将一维系统的一个二阶常微分方程化为了
+    两个变量组成的一阶常微分方程组。这样的方法也能推广到$n$维系统，由于$2n$个初始条件（初始坐标
+    和初始速度）决定了这个系统的运动，对应的我们也需要$2n$个一阶的方程组来描述这个系统；另一个问题是
+    如何选择独立的变量，自然的想法是将$n$个坐标和$n$个“动量”（严格来讲是\textbf{广义动量}）选为
+    独立变量，这样得到的方程组称为Hamilton正则方程。
+    \par 
+    关于Hamilton方程组的严格导出需要从Lagrange量和Euler-Lagrange方程出发，这里仅给出相关结论（具体
+    的过程可以参考后面的章节）。一般而言，系统的Hamilton函数是系统坐标、动量与时间的函数
+    $H = H(\{x_i\},\{p_i\},t)$，系统的运动方程由Hamilton正则方程给出：
+    \begin{equation}
+        \left\{
+            \begin{split}
+                \dot{x_{i}} &= \pdv{H}{p_i}\\
+                \dot{p_{i}} &= -\pdv{H}{x_{i}}
+            \end{split}
+        \right.
+        \quad\quad
+        i = 1, 2, 3, \cdots, n
+        \label{Hamilton equation}
+    \end{equation}
+    这里不经证明地给出一维（可以推广到高维）保守体系体系在直角坐标系中的Hamilton函数：
+    \begin{equation}
+        H(x,p,t) = \frac {p^2}{2m} + V(x)
+    \end{equation}
+    可以在一维情形下通过牛顿方程验证\textbf{正则方程}的正确性：
+    \begin{equation}
+        \begin{split}
         \frac {\partial H}{\partial x} &= \frac {\partial V}{\partial x} = -\dot{p}\\
         \frac {\partial H}{\partial p} &= \frac pm = \dot{x}
-    \end{align*}
-    因此
-    \begin{align*}
-        \frac {\mathrm{d}H}{\mathrm{d}t} &= \frac {\partial H}{\partial x} \dot{x} + \frac {\partial H}{\partial p} \dot{p} + \frac {\partial H}{\partial t} = \frac {\partial H}{\partial t}
-    \end{align*}
-    这个结论对任意正则方程成立的体系都成立。在谐振子模型中，Hamilton函数不显含时间，故
-    \begin{equation*}
+        \end{split}
+    \end{equation}
+    现在希望验算对于Hamilton量不含时（具有时间平移对称性）的系统，在其任何一个由正则方程
+    决定的路径上Hamilton量守恒，即：
+    \begin{equation}
+        H(x(t),p(t),t) = H(x(0),p(0),0)~~~~~\forall t
+    \end{equation}
+    考虑Hamilton量对于时间的导数，同时带入正则方程：
+    \begin{equation}
+        \frac {\mathrm{d}H}{\mathrm{d}t} = \frac {\partial H}{\partial x} \dot{x} + \frac {\partial H}{\partial p} \dot{p} + \frac {\partial H}{\partial t} = \frac {\partial H}{\partial t} = 0
+    \end{equation}
+    \par 
+    在谐振子模型中，Hamilton函数不显含时间，故
+    \begin{equation}
         \frac {\mathrm{d}H}{\mathrm{d}t} = 0
-    \end{equation*}
-    这个体系可以在\textbf{相空间}中描述，即把它的状态画在一个$(x,p)$的二维空间中，观察它随时间的变化。显然地谐振子体系在相空间中的轨迹应该是一个椭圆。
-    \begin{align*}
-        \frac {p^2}{2m} + \frac 12 kx^2 = E_0
-    \end{align*}
-    其周期为
-    \begin{equation*}
-        T = \frac {2\pi}{\omega}
-    \end{equation*}
-    但是，对于任意的满足能量守恒的体系，其在相空间中的轨迹不一定是一条封闭的曲线，在一些情况下有可能充满相空间的某个区域。\cite{Landau2007mechanics}
-    \begin{asg}
-        第1次作业第1题：一维四次势的周期轨道
-    \end{asg}
-
-    现在考虑质量是$x,p$的函数$m_\mathrm{eff}(x,p)$, 在这种情况下Hamilton函数为
-    \begin{equation*}
+    \end{equation}
+    这个体系可以在\textbf{相空间}
+    \footnote{事实上，相空间就是Hamilton方程中独立变量所张成的空间}
+    中描述，即把它的状态画在$(x,p)$二维平面上，观察系统的代表点随时间的运动。
+    显然谐振子体系在相空间中的轨迹是一个椭圆：
+    \begin{equation}
+        \frac{p^2}{2m} + \frac 12 kx^2 = E_0
+    \end{equation}
+    其中$E_0$由初始状态决定。由于之前已经解出谐振子的运动方程，容易得到运动的周期：
+    \begin{equation}
+        T = \frac{2\pi}{\omega}
+    \end{equation}
+    \par 
+    但是，对于任意的满足能量守恒的体系，其在相空间中的轨迹不一定是一条封闭的曲线（即并不是所有的运动
+    都是周期的，尤其是对于高维的问题），在一些情况下有可能充满相空间的某个区域。常见的例子有中心力场
+    \cite{Landau2007mechanics}、二维谐振子等\cite{B2006经典力学的数学方法}，这里给出一个简单的例子。考虑一个二维的谐振子，其Hamilton量
+    为：
+    \begin{equation}
+        H = \frac{1}{2m}(p_1^2 + p_2^2) + \frac{m}{2}(\omega_1^2x_1^2 + \omega_2^2x_2^2)
+    \end{equation}
+    可以解出运动方程为：
+    \begin{equation}
+        \begin{split}
+            x_1 &= A_1\cos(\omega_1 t + \phi_1)\\
+            x_2 &= A_2\cos(\omega_2 + \phi_2)
+        \end{split}
+    \end{equation}
+    可以看出，如果$\omega_1 / \omega_2$为一个有理数，那么上面的运动（参数方程所代表的二维曲线）就是
+    有周期的；如果是无理数，那么曲线应该在某个区域内是稠密的（没有周期）。
+    现在考虑质量是$x,p$的函数，即$m_\mathrm{eff}(x,p)$, 在这种情况下Hamilton函数为
+    \begin{equation}
         H(x,p) = \frac {p^2}{2m_\mathrm{eff}(x,p)} + V(x)
-    \end{equation*}
-    在这种情况下的运动方程为
-    \begin{align*}
-        \dot{x} &= \frac {\partial H}{\partial p} = \frac {p}{2m_{\mathrm{eff}}} - \frac {p^2}{2m_{\mathrm{eff}^2}} \frac {\partial m_\mathrm{eff}}{\partial p} \\
-        \dot{p} &= -\frac {\partial H}{\partial x} = \frac {p^2}{2m_\mathrm{eff}^2} \frac {\partial m_\mathrm{eff}}{\partial x} + \frac {\partial V}{\partial x}
-    \end{align*}
-    这种情况下能量仍然守恒，因为Hamilton函数不显含时间，且正则方程成立。
+    \end{equation}
+    在这种情况下的运动方程为：
+    \begin{equation}
+        \begin{split}
+            \dot{x} &= \frac {\partial H}{\partial p} = \frac {p}{2m_{\mathrm{eff}}} - \frac {p^2}{2m_{\mathrm{eff}^2}} \frac {\partial m_\mathrm{eff}}{\partial p} \\
+            \dot{p} &= -\frac {\partial H}{\partial x} = \frac {p^2}{2m_\mathrm{eff}^2} \frac {\partial m_\mathrm{eff}}{\partial x} + \frac {\partial V}{\partial x}
+        \end{split}
+    \end{equation}
+    这种情况下能量仍然守恒，因为Hamilton函数不显含时间。
+    \subsection{Hamilton 方程的数值解法}
+    容易想象（从上面的习题同样可以看出），对于一般的力学系统，给出运动方程的解析形式非常困难，这时候就要求
+    我们通过一些其他的手段来获取运动方程的信息，一个常用的方法是数值求解。数值求解的基本思路是用有限差分
+    代替微分，然后利用计算机来求解差分方程。对于同一个微分方程，可以设计不同的差分格式，它们在极限情况下
+    （步长趋于0）都会回到原来的微分方程，但是在步长有限的情况下，这些差分方程对于问题的描述可能会有明显
+    的差异，这里只做简单的介绍。首先考虑一般形式微分方程的初值问题：
+    \begin{equation}
+        \begin{split}
+            \dv{x}{t} &= f(x, t) \\
+            x(t_0) &= x_0
+        \end{split}
+    \end{equation}
+    \subsubsection{Euler 法}
+    考虑使用有限差分代替微分：
+    \begin{equation}
+        \dv{x}{t} = f(x, t) \approx \frac{x(t + h) - x(t)}{h}
+    \end{equation}
+    将上式改写为递推的形式：
+    \begin{equation}
+        x_{n+1} = x_n + h\cdot f(x_n, t_n)
+    \end{equation}
+    只要知道初始条件，上式可以不断递推。上面的方法称为向前欧拉法，是一种显式的单步算法。
+    \footnote{
+        单步：可以通过$x_n$的数值计算$x_{n+1}$的数值；显式：如果$x_n+1$只需要$x_{m<n}$的数值计算
+    }
+    相应的有向后欧拉法：
+    \begin{equation}
+        x_{n+1} = x_n + h\cdot f(x_{n+1}, t_{n+1})
+    \end{equation}
+    这是一个隐式的单步算法，需要在知道$f$的具体形式后从上式中反解$x_{n+1}$。
+    \subsubsection{Runge-Kutta 法}
+    \paragraph{二阶 Runge-Kutta 法}
+    \begin{equation}
+        \left\{
+            \begin{split}
+                k_1 &= h\cdot f(x_n, t_n)\\
+                k_2 &= h\cdot f(x_n + \frac{1}{2}k_1, t_n + \frac{1}{2}h)\\
+                x_{n+1} &= x_n + k_2 + O(h^3)
+            \end{split}
+        \right.
+    \end{equation}
+    \paragraph{四阶 Runge-Kutta 法}
+    \begin{equation}
+        \left\{
+            \begin{split}
+                k_1 &= h\cdot f(x_n, t_n)\\
+                k_2 &= h\cdot f(x_n + \frac{1}{2}k_1, t_n + \frac{1}{2}h)\\
+                k_3 &= h\cdot f(x_n + \frac{1}{2}k_2, t_n + \frac{1}{2}h)\\
+                k_4 &= h\cdot f(x_n + k_3, t_n + h)\\
+                y_{n + 1} &= y_n + \frac{1}{6}k_1 + \frac{1}{3}k_2 + \frac{1}{3}k_3 + \frac{1}{6}k_4 + O(h^5)
+            \end{split}
+        \right.
+    \end{equation}
+    Runge-Kutta法是一种常用的精度较高的单步算法，在同样的$t$步长下拥有比Euler法更高的精度。
+    \footnote{
+        关于差分格式的误差估计与稳定性分析这里无法展开讨论，应参考相关书籍
+    }
+    对于常微分方程组，只用将上述差分格式中的$k_i, x_n, f$改为向量即可。
+    \subsubsection{velocity-Verlet 方法}
+    容易想象，前几种方法求解微分方程时每一步误差都会累积，一定时间后数值解就会与真实解产生明显
+    偏离。由于Hamilton方程具有比一般微分方程更加丰富的性质，这就意味着有可能存在适用于Hamilton系统
+    的差分方案，它可以保持Hamilton系统中的一些守恒量
+    \footnote{
+        可以通过数值计算验证无论是Euler法还是Runge-Kutte法都不能保证演化过程中系统的能量稳定
+    }，从而在相当长时间内给出较为精确
+    的数值解
+    \footnote{
+        当然，保证了能量守恒并不一定能保证数值解在任意时刻都可以与真实解任意接近。
+    }，下面给出的velocity—Verlet方法就是这样一个差分格式。这里只给出一维系统的例子，容易推广到任意维
+    系统。假设系统的哈密顿量为：
+    \begin{equation}
+        H = \frac{p^2}{2m} + V(x)
+    \end{equation}
+    \begin{equation}
+        \left\{
+            \begin{split}
+                p_{j+0.5} &= p_j - \frac{\Delta t}{2}\left.\pdv{V}{x}\right|_{x = x_j}\\
+                x_{j+1} &= \frac{p_{j+0.5}}{m}\Delta t + x_{j}\\
+                p_{j+1} &= p_{j+0.5} - \frac{\Delta t}{2}\left.\pdv{V}{x}\right|_{x=x_{j+1}}
+            \end{split}
+        \right.
+    \end{equation}
+    可以写程序验证，至少对于一维四次方势系统，velocity-Verlet方法给出的数值解能量是稳定的。
+    \section{Homework}
     \begin{asg}
-        第1次作业第2题：竖立粉笔的问题
+        一维四次势中粒子的运动。尝试在给定初始条件的情况下给出解析解；同时尝试用不同的数值
+        方法求解运动方程，比较几种方法的差异（能量是否稳定？）
+    \end{asg}
+    \begin{asg}
+        竖立粉笔的问题。竖立在桌面上的粉笔是否会永远静止？如果不是，请求出粉笔偏离平衡位置的
+        角度的平均值与平方平均值。
     \end{asg}
     \bibliographystyle{plain}
     \bibliography{ref_chp_1}
