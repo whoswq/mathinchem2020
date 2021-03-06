@@ -5,7 +5,7 @@ bibtex main
 
 for file in $(ls chp_*)
 do
-bibtex ${file%.*}
+bibtex ${file%.aux}
 done
 
 xelatex main

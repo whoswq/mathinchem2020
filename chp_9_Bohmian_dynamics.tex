@@ -1,11 +1,25 @@
 \chapter{Bonmian 动力学}
     \section{20210104：Bohmian动力学}
 
-        类比经典情况有守恒的连续性方程
+        类比经典情况，若存在守恒量
+        \begin{equation*}
+            \int \rho (\bm{x},t) \mathrm{d} \bm{x} = \text{const.}
+        \end{equation*}
+        且局部没有粒子的产生与湮灭，则有连续性方程
         \begin{equation*}
             \frac {\partial \rho}{\partial t} + \bm{\nabla} \cdot (\rho \bm{v}) = 0
         \end{equation*}
-        在量子力学中也有守恒量：
+        可以将守恒量的方程两侧对时间求导，可以得到一个在积分中的连续性方程
+        \begin{align*}
+            \frac{\mathrm{d}}{\mathrm{d}t} \int_V \rho (\bm{x}_t, t) \mathrm{d} \bm{x}_t
+            & = \int_V \bigg( \frac{\mathrm{d}\rho}{\mathrm{d}t} \mathrm{d} \bm{x}_t + \rho \frac{\mathrm{d}}{\mathrm{d}t} \mathrm{d} \bm{x}_t\bigg) \\
+            & = \int_V \bigg( \frac{\partial \rho}{\partial t} + \frac{\partial \rho}{\partial \bm{x}_t}\bm{\dot{x}}_t + \rho \frac{\partial \bm{\dot{x}}_t}{\partial \bm{x}_t} \bigg) \mathrm{d} \bm{x}_t \\
+            & = \int_V \bigg( \frac {\partial \rho}{\partial t} + \bm{\nabla} \cdot (\rho \bm{v}) \bigg) \mathrm{d} \bm{x}_t \\
+            & = 0 
+        \end{align*}
+        如果希望连续性方程在局部也成立，则要求局部没有粒子的产生与湮灭。
+
+        在量子力学中也有守恒量
         \begin{equation*}
             \int |\psi(\bm{x},t)|^2 \mathrm{d}x = 1
         \end{equation*}
@@ -13,97 +27,43 @@
 
         考虑含时Schrodinger方程
         \begin{equation*}
-            \mathrm{i}\hbar \frac {\partial}{\partial t} \psi(\bm{x},t) = \bigg(\frac {\hbar^2}{2m}\bm{\nabla + \bm{v}}\bigg)\psi
+            \mathrm{i}\hbar \frac {\partial}{\partial t} \psi(\bm{x},t) = \bigg( - \frac {\hbar^2}{2m}\bm{\nabla}^2 + V(\bm{x})\bigg) \psi(\bm{x},t)
         \end{equation*}
-        波函数可以写成
+        如果我们将波函数写成如下形式，其中$\rho(\bm{x},t)$与$S(\bm{x},t)$是两个实函数，且$\rho(\bm{x},t)$非负。在后面我们会发现$\rho(\bm{x},t)$具有概率密度的意义，$S(\bm{x},t)$具有作用量的意义。
         \begin{equation*}
             \psi(\bm{x},t) = \sqrt{\rho} \mathrm{e}^{\frac {\mathrm{i}S(\bm{x},t)t}{\hbar}}
         \end{equation*}
-        将波函数的形式代入Schrodinger方程可以得到上式以及Hamilton-Jacobian方程
+        将波函数的形式代入含时Schrodinger方程，对比方程两侧虚部与实部，可以得到连续性方程以及Hamilton-Jacobian方程
         \begin{align*}
-            \frac {(\frac {\partial S}{\partial x})^2}{2m} + V(\bm{x}) - \frac {\hbar^2}{2m} \frac {\nabla^2 \sqrt{\rho}}{\sqrt{\rho}} = -\frac {\partial S}{\partial t}
+            &\frac {\partial \rho}{\partial t} + \bm{\nabla} \cdot (\rho \bm{v}) = 0 \\
+            &\frac {(\frac {\partial S}{\partial x})^2}{2m} + V(\bm{x}) - \frac {\hbar^2}{2m} \frac {\nabla^2 \sqrt{\rho}}{\sqrt{\rho}} = -\frac {\partial S}{\partial t}
         \end{align*}
-        前两项可以和经典情况类比，第三项是量子力学而来，定义
+        其中连续性方程中的速度场为
+        \begin{equation*}
+            \bm{v} = \frac 1m \frac {\partial S}{\partial \bm{x}}
+        \end{equation*}
+        Hamilton-Jacobian方程前两项可以和经典情况类比，第三项是量子力学而来，定义为\textbf{量子势}：
         \begin{equation*}
             Q(\bm{x},t) = - \frac {\hbar^2}{2m} \frac {\nabla^2 \sqrt{\rho}}{\sqrt{\rho}}
         \end{equation*}
-        为\textbf{量子势}。速度场即为
+
+        从Hamilton-Jacobian方程出发，可以得到运动方程
         \begin{equation*}
-            \bm{v} = \bm{M}^{-1}\bm{p} = \bm{M}^{-1}\frac {\partial S}{\partial \bm{x}}
-        \end{equation*}
-        从Hamilton-Jacobian方程出发，可以得到运动方程。如果是经典的Hamilton-Jacobian方程，没有量子势
-        \begin{equation*}
-            \frac {(\frac {\partial S}{\partial x})^2}{2m} + V(\bm{x}) = -\frac {\partial S}{\partial t}
+            \frac 12 \bigg(\frac {\partial S}{\partial \bm{x}_t}\bigg)^{\mathrm{T}} \bm{M}^{-1} \frac {\partial S}{\partial \bm{x}_t} + V(\bm{x}) + Q(\bm{x}, t) = -\frac {\partial S}{\partial t}
         \end{equation*}
         考虑作用量的全导
         \begin{equation*}
-            \frac {\mathrm{d}S}{\mathrm{d}t} = \frac {\partial S}{\partial t} + \frac {\partial S}{\partial \bm{x}_t} \dot{\bm{x}_t} = \frac 12 \bigg(\frac {\partial S}{\partial \bm{x}_t}\bigg)^{\mathrm{T}} \bm{M}^{-1} \frac {\partial S}{\partial \bm{x}_t} - V(\bm{x})
+            \frac {\mathrm{d}S}{\mathrm{d}t} = \frac {\partial S}{\partial t} + \frac {\partial S}{\partial \bm{x}_t} \dot{\bm{x}_t} = \frac 12 \bigg(\frac {\partial S}{\partial \bm{x}_t}\bigg)^{\mathrm{T}} \bm{M}^{-1} \frac {\partial S}{\partial \bm{x}_t} - V(\bm{x}) - Q(\bm{x}, t)
         \end{equation*}
-        之后可以对位置求偏导，最终得到
+        之后可以对位置求偏导（即对方程两侧求${\partial} / {\partial \bm{x}_t}$），最终得到以下第二个式子。第一个式子是动量的定义。
         \begin{align*}
-            \dot{\bm{x}}_t &= \bm{M}^{-1} \frac {\partial S(\bm{x}_t,t)}{\partial \bm{x}_t}\\
-            \dot{\bm{p}}_t &= -\frac {\partial V(\bm{x}_t)}{\partial \bm{x}_t} - \frac {\partial Q(\bm{x}_t)}{\partial \bm{x}_t}
+            \dot{\bm{x}}_t &= \bm{M}^{-1} \frac {\partial S(\bm{x}_t,t)}{\partial \bm{x}_t} \\
+            \dot{\bm{p}}_t &= -\frac {\partial V(\bm{x}_t)}{\partial \bm{x}_t} - \frac {\partial Q(\bm{x}_t, t)}{\partial \bm{x}_t}
         \end{align*}
         这称为\textbf{量子轨线方程}。如果对$\rho$求全导，
         \begin{equation*}
             \frac {\mathrm{d}\rho}{\mathrm{d}t} = \frac {\partial \rho}{\partial t} + \frac {\partial \rho}{\partial \bm{x}_t} \dot{\bm{x}}_t = -\rho \bm{\nabla} \cdot \dot{\bm{x}}_t
         \end{equation*}
-
-        波函数的求解可以转化为用0时刻的求解
-        \begin{equation*}
-            \psi(\bm{x},t) = \langle \bm{x} | \mathrm{e}^{-\frac {\mathrm{i}\hat{H}t}{\hbar}} | \psi(\bm{x},0) \rangle = \sum_n \langle \bm{x}|\phi_n \rangle \langle \phi_n |\psi_0 \rangle \mathrm{e}^{-\frac {\mathrm{i}E_n t}{\hbar}}
-        \end{equation*}
-
-        例如，
-        \begin{equation*}
-            \psi(x,0) =  \bigg(\frac {2a}{\pi}\bigg)^{\frac 14} \mathrm{e}^{-\alpha (x - x_{\mathrm{eq}})^2 +\frac {\mathrm{i}{\hbar}} p_{\mathrm{eq}}(x - x_\mathrm{eq})}
-        \end{equation*}
-        则
-        \begin{align*}
-            S(x_0,0) &= p_\mathrm{eq} (x_0 - x_\mathrm{eq})\\
-            p_0 &= \frac {\partial S}{\partial x_0} = p_\mathrm{eq}
-        \end{align*}
-
-        根据经典情况统计物理的结果
-        \begin{equation*}
-            \langle A \rangle =\frac 1Z \int \rho(x,p)A(x,p) \mathrm{d}x\mathrm{d}p
-        \end{equation*}
-        其中 
-        \begin{align*}
-            \rho &= \frac 1Z \mathrm{e}^{-\beta H(x,p)}\\
-            Z &= \int \frac 1{2\pi \hbar} \mathrm{e}^{-\beta H(x,p)} \mathrm{d}x \mathrm{d}p
-        \end{align*}
-        现在要问，量子力学有没有同样的形式？
-
-        定义
-        \begin{equation*}
-            \mathrm{Tr} (\hat{A}\hat{B}) = \frac 1{2\pi\hbar}\int A(x,p)B(x,p) \mathrm{d}x \mathrm{d}p
-        \end{equation*}
-        重要的是求出两个算符在量子力学下的形式。
-        \begin{align*}
-            A_\mathrm{w}(x,p) &= \langle x - \frac {\Delta}2 | \hat{A} | x + \frac {\Delta}2 \rangle \mathrm{e}^{\frac {\mathrm{i}\Delta p}{\hbar}}\\
-            B_\mathrm{w}(x,p) &= \langle x - \frac {\Delta}2 | \hat{B} | x + \frac {\Delta}2 \rangle \mathrm{e}^{\frac {\mathrm{i}\Delta p}{\hbar}}
-        \end{align*}
-        可以验证，如果$\hbar \to 0$, 应有$A_\mathrm{w} \to A_\mathrm{cl}$, $B_\mathrm{w} \to B_\mathrm{cl}$. 
-
-        可以表示出概率密度分布
-        \begin{equation*}
-            \hat{\rho} = |\psi \rangle \langle \psi |
-        \end{equation*}
-        可以在位置空间和动量空间给出概率密度分布。并可以验证
-        \begin{align*}
-            \int \rho_\mathrm{w}(x,p) \mathrm{d}x &= \langle p|\hat{\rho}|p \rangle\\
-            \int \rho_\mathrm{w}(x,p) \mathrm{d}p &= \langle x|\hat{\rho}|x \rangle
-        \end{align*}
-        要求物理量期望值可以写成
-        \begin{align*}
-            \langle \psi | \hat{B} | \psi \rangle &=  \langle \psi |\sum_n | \phi_n \rangle \langle \phi_n | \hat{B} | \psi \rangle\\
-            &= \sum_n \langle \phi_n | \hat{B} | \psi \rangle \langle \psi  | \phi_n \rangle\\
-            &= \mathrm{Tr} (\hat{B}|\psi \rangle \langle \psi |)
-        \end{align*}
-        它等价为
-        \begin{equation*}
-            \langle \psi|\hat{B}|\psi \rangle = \frac 1{2\pi \hbar} \int \rho_\mathrm{w}(x,p) B_\mathrm{w}(x,p) \mathrm{d}x\mathrm{d}p
-        \end{equation*}
+        由以上方程，可以通过直接演化量子轨线解决量子体系随时间演化的问题。但计算速度场的散度在数值上无疑是十分困难的。
         \bibliographystyle{plain}
-        \bibliography{ref_chp_9}    
+        \bibliography{ref_chp_9}
