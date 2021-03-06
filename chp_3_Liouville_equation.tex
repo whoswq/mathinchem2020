@@ -1,7 +1,49 @@
 \chapter{Liouville 方程}
+    \section{Liouville方程}
+    如果定义一个概率密度$\rho(\bm{x},\bm{p})$，它满足归一化条件，且处处不小于0. 假设初始条件下在$\bm{x}_0,\bm{p}_0$位置有个体积元$\mathrm{d}\bm{x}_0 \mathrm{d}\bm{p}_0$，跟踪这个体积元经历的轨线，达到$\mathrm{d}\bm{x}_t \mathrm{d}\bm{p}_t$时，在这个体积元的概率应为不变的。这可以理解为，根据Liouville定理，最开始在体积元里面的状态仍然会在初始状态演化后的体积元里。这可以表述为
+    \begin{equation*}
+        \rho(\bm{x}_t,\bm{p}_t) = \rho(\bm{x}_0,\bm{p}_0)
+    \end{equation*}
+    它对任意的$t$都成立，则
+    \begin{equation*}
+        \frac {\mathrm{d}\rho}{\mathrm{d}t} = \frac {\partial \rho}{\partial t} + \frac {\partial \rho}{\partial \bm{x}_t}\dot{\bm{x}}_t  + \frac {\partial \rho}{\partial \bm{p}_t} \dot{\bm{p}}_t = 0
+    \end{equation*}
+    再利用正则方程，得到
+    \begin{equation*}
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{p}_t} - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{x}_t}
+    \end{equation*}
+    定义\textbf{Poisson括号}为
+    \begin{equation*}
+        \{ \rho, H\} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{p}_t} - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{x}_t}
+    \end{equation*}
+    则有
+    \begin{equation*}
+        - \frac {\partial \rho}{\partial t} = \{ \rho, H\}
+    \end{equation*}
+    这也是Liouville定理的一种形式。如果Hamilton函数满足形式
+    \begin{equation*}
+        H(\bm{x}_t,\bm{p}_t) = \frac 12 \bm{p}_t^\mathrm{T} \bm{M}^{-1} \bm{p}_t + V(\bm{x}_t)
+    \end{equation*}
+    则有
+    \begin{equation*}
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \bm{M}^{-1} \bm{p}_t  - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial V}{\partial \bm{x}_t}
+    \end{equation*}
 
-    \section{20201012：Euler图象演化概率密度}
+    一种常见的分布：\textbf{Boltzmann分布}：
+    \begin{equation*}
+        \rho(\bm{x},\bm{p}) \propto \mathrm{e}^{-\beta H(\bm{x},\bm{p})}
+    \end{equation*}
 
+    如果一个分布满足
+    \begin{equation*}
+        \frac {\partial \rho}{\partial t} = 0
+    \end{equation*}
+    则称之为\textbf{稳态分布}。但是即使不是稳态分布，它也会满足对时间的全导数是0。这也是Liouville定理的一个形式。
+    研究一个概率密度的时候，有两种方式：一种是研究密度对时间的偏导，看静止空间的概率密度的变化，
+    这称为\textbf{Euler图象}。另一种方式是研究密度对时间的劝导，跟踪状态运动的轨线，
+    研究这个密度体积元在不同的时间的位置，这称为\textbf{Lagrange图象}。
+    \section{求解Liouville方程}
+    \subsection{20201012：Euler图象演化概率密度}
     Liouville定理有两种表述形式：
     \begin{equation*}
         -\frac {\partial \rho}{\partial t} = \{ \rho,H \}
@@ -53,16 +95,9 @@
     \begin{equation*}
         \omega = \sqrt{\frac {2D_ea^2}m}
     \end{equation*}
-    \begin{asg}
-        第2次作业第2题：构造\ce{H2}分子的Morse势
-    \end{asg}
-    \begin{asg}
-        第2次作业第3题：以Boltzmann分布为初始分布，在Morse势，Euler图象下演化\ce{H2}的$t$时刻的分布。
-    \end{asg}
     事实上，对双原子分子HCl, 它有6个自由度，3个平动，2个转动，所以我们可以只用振动自由度来描述HCl的分子结构。
 
-    \section{20201016：Lagrange图象演化概率密度}
-
+    \subsection{20201016：Lagrange图象演化概率密度}
     除了用Euler图象来演化密度以外，也可以用Lagrange图象来演化密度。由
     \begin{equation*}
         \frac {\mathrm{d}}{\mathrm{d}t} \rho(x_t,p_t,t) = 0
@@ -105,8 +140,18 @@
         \Delta x &= \sqrt{\langle x^2 \rangle - \langle x \rangle ^2} = \frac 1{\sqrt{\beta m \omega^2}}
     \end{align*}
 
+    \section{Homework}
     \begin{asg}
-        第3次作业第2题：以Boltzmann分布为初始分布，在Morse势，Lagrange图象下演化\ce{H2}的$t$时刻的分布。
+        Boltzmann分布是否为稳态分布？
+    \end{asg}
+    \begin{asg}
+        第2次作业第2题：构造\ce{H2}分子的Morse势
+    \end{asg}
+    \begin{asg}
+        以Boltzmann分布为初始分布?，在Morse势，Euler图象下演化\ce{H2}的$t$时刻的分布。
+    \end{asg}
+    \begin{asg}
+        以Boltzmann分布为初始分布?，在Morse势，Lagrange图象下演化\ce{H2}的$t$时刻的分布。
     \end{asg}
 
     \bibliographystyle{plain}
