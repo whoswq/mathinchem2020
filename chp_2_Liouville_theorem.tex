@@ -92,15 +92,15 @@
     若初始位置偏离$(\mathrm{d}\bm{x}_0,\mathrm{d}\bm{p}_0)$（假设偏离量是小量），那么
     \begin{equation}
         \begin{split}
-        \bm{x}_t(\bm{x}_0+\mathrm{d}\bm{x}_0, \bm{p}_0+\mathrm{d}\bm{p}_0) &= \bm{x}_t(\bm{x}_0, \bm{p}_0) + \frac {\partial \bm{x}_t}{\partial \bm{x_0}} \d \bm{x}_0 + \frac {\partial \bm{x}_t}{\partial \bm{p}_0} \d \bm{p}_0\\
-        \bm{p}_t(\bm{x}_0+\mathrm{d}\bm{x}_0, \bm{p}_0+\mathrm{d}\bm{p}_0) &= \bm{p}_t(\bm{x}_0, \bm{p}_0) + \frac {\partial \bm{p}_t}{\partial \bm{x_0}} \d \bm{x}_0 + \frac {\partial \bm{p}_t}{\partial \bm{p}_0} \d \bm{p}_0
+        \bm{x}_t(\bm{x}_0+\mathrm{d}\bm{x}_0, \bm{p}_0+\mathrm{d}\bm{p}_0) &= \bm{x}_t(\bm{x}_0, \bm{p}_0) + \frac {\partial \bm{x}_t}{\partial \bm{x_0}} \mathrm{d} \bm{x}_0 + \frac {\partial \bm{x}_t}{\partial \bm{p}_0} \mathrm{d} \bm{p}_0\\
+        \bm{p}_t(\bm{x}_0+\mathrm{d}\bm{x}_0, \bm{p}_0+\mathrm{d}\bm{p}_0) &= \bm{p}_t(\bm{x}_0, \bm{p}_0) + \frac {\partial \bm{p}_t}{\partial \bm{x_0}} \mathrm{d} \bm{x}_0 + \frac {\partial \bm{p}_t}{\partial \bm{p}_0} \mathrm{d} \bm{p}_0
         \end{split}
     \end{equation}
     这里只考虑了Taylor展开到一阶的结果。或者写成
     \begin{equation}
         \begin{split}
-            \mathrm{d}\bm{x}_t &= \frac {\partial \bm{x}_t}{\partial \bm{x_0}} \d \bm{x}_0 + \frac {\partial \bm{x}_t}{\partial \bm{p}_0} \d \bm{p}_0\\
-            \mathrm{d}\bm{p}_t &= \frac {\partial \bm{p}_t}{\partial \bm{x_0}} \d \bm{x}_0 + \frac {\partial \bm{p}_t}{\partial \bm{p}_0} \d \bm{p}_0
+            \mathrm{d}\bm{x}_t &= \frac {\partial \bm{x}_t}{\partial \bm{x_0}} \mathrm{d} \bm{x}_0 + \frac {\partial \bm{x}_t}{\partial \bm{p}_0} \mathrm{d} \bm{p}_0\\
+            \mathrm{d}\bm{p}_t &= \frac {\partial \bm{p}_t}{\partial \bm{x_0}} \mathrm{d} \bm{x}_0 + \frac {\partial \bm{p}_t}{\partial \bm{p}_0} \mathrm{d} \bm{p}_0
         \end{split}
         \end{equation}
     现在已经将$t$时刻的位置偏离表示成了0时刻位置偏离的函数\footnote{初始时刻只有无穷小偏离，因此只考虑线性近似}
@@ -171,11 +171,11 @@
     \subsection{Liouville定理的证明}
     $t$时刻$\phi^t(D)$的体积用积分表示为：
     \begin{equation}
-        V(\phi^t(D)) = \int_{\phi^t D}\d x_1\d x_2\cdots\d x_n
+        V(\phi^t(D)) = \int_{\phi^t D}\mathrm{d} x_1\mathrm{d} x_2\cdots\mathrm{d} x_n
     \end{equation}
     考虑到重积分的换元公式，可以将$\phi^t(D)$的体积写为：
     \begin{equation}
-        V(\phi^t(D)) = \int_{D}\left|\pdv{\phi^t}{\bm{x}}\right|\d x_1\d x_2\cdots\d x_n
+        V(\phi^t(D)) = \int_{D}\left|\pdv{\phi^t}{\bm{x}}\right|\mathrm{d} x_1\mathrm{d} x_2\cdots\mathrm{d} x_n
     \end{equation}
     那么只用知道映射$\phi^t$的Jacobi行列式$\displaystyle\left|\pdv{\phi^t}{\bm{x}}\right|$的表达式就可以计算出
     $\phi^t$映射下体积的变化。但是这个行列式本身的性质无法直接看出，我们对其求导：
@@ -262,7 +262,7 @@
     的表达式：
     \begin{equation}
         \left|\pdv{\phi^t}{\bm{x}_{0}}\right| = \exp\left(\int_{0}^{t}\mr{Tr}\left.
-        \pdv{\bm{v}}{\bm{x}}\right|_{\bm{x} = \bm{\phi}(u, \bm{x}_0)}\d u\right)
+        \pdv{\bm{v}}{\bm{x}}\right|_{\bm{x} = \bm{\phi}(u, \bm{x}_0)}\mathrm{d} u\right)
     \end{equation}
     将上式带入(2.19)就可以得到理论上的体积公式。可以看出，要计算出Jacobi行列式必须要方程的显式解，
     这在大多数情况下并不能够得到满足，但是当$\displaystyle\mr{Tr}\pdv{\bm{v}}{\bm{x}}$
@@ -290,7 +290,7 @@
     $(\bm{x}_t,\bm{p}_{t})$\footnote{这样的记法所表达的真正含义是$\phi^t(\bm{x}_0, \bm{p}_0) = (\bm{x}_t, \bm{p}_t)$}，
     那么两个由映射$\phi^t$联系起来的空间的体积元之间满足：
     \begin{equation}
-        \mathrm{d}\bm{x}_t \mathrm{d}\bm{p}_t = \left|\pdv{\phi^t}{\bm{x}_0}\right|\mathrm{d}\bm{x}_0 \mathrm{d}\bm{p}_0 = \d \bm{x}_0\d \bm{p}_0
+        \mathrm{d}\bm{x}_t \mathrm{d}\bm{p}_t = \left|\pdv{\phi^t}{\bm{x}_0}\right|\mathrm{d}\bm{x}_0 \mathrm{d}\bm{p}_0 = \mathrm{d} \bm{x}_0\mathrm{d} \bm{p}_0
     \end{equation}
     上面的等式完全可以看作Liouville定理的另一种表述形式。
     \par
