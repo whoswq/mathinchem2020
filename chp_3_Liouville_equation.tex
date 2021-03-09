@@ -1,21 +1,103 @@
 \chapter{Liouville 方程}
     \section{Liouville方程}
-    如果定义一个概率密度$\rho(\bm{x},\bm{p})$，它满足归一化条件，且处处不小于0. 假设初始条件下在$\bm{x}_0,\bm{p}_0$位置有个体积元$\mathrm{d}\bm{x}_0 \mathrm{d}\bm{p}_0$，跟踪这个体积元经历的轨线，达到$\mathrm{d}\bm{x}_t \mathrm{d}\bm{p}_t$时，在这个体积元的概率应为不变的。这可以理解为，根据Liouville定理，最开始在体积元里面的状态仍然会在初始状态演化后的体积元里。这可以表述为
-    \begin{equation*}
-        \rho(\bm{x}_t,\bm{p}_t) = \rho(\bm{x}_0,\bm{p}_0)
-    \end{equation*}
-    它对任意的$t$都成立，则
-    \begin{equation*}
-        \frac {\mathrm{d}\rho}{\mathrm{d}t} = \frac {\partial \rho}{\partial t} + \frac {\partial \rho}{\partial \bm{x}_t}\dot{\bm{x}}_t  + \frac {\partial \rho}{\partial \bm{p}_t} \dot{\bm{p}}_t = 0
-    \end{equation*}
+    \subsection{有关系综的概念}\footnote{这一节的更多内容可以参考\cite{Tuckerman2010Statistical}
+    和刘川老师的平衡态统计物理讲义第二章开头}
+    统计物理的目标是建立宏观物理量和微观运动规律之间的联系，之前讨论的Hamilton方程可以用来描述经典意义下
+    微观系统的运动。某个微观系统的运动状态（某一时刻各个粒子的广义坐标和广义动量）对应相空间中一个点（
+    称为系统的\textbf{代表点}），系统随时间的演化等价于代表点在相空间中按照Hamilton方程决定的轨线运动。Maxwell
+    与Boltzmann认为，对于宏观系统的测量发生在一段时间$(t_0, t_0 + \tau)$内，其中$\tau$是一个
+    宏观短（指系统的宏观物理量没有发生可观测的变化）、微观长（指在这段时间内系统的代表点在相空间中发生了
+    很明显的移动）的时间段，而真正观测到的物理量$A(t_0)$是对应微观物理量$a(x,p)$的\textbf{时间平均}：
+    \begin{equation}
+        A(t_0) := \frac{1}{\tau}\int_{t_0}^{t_0+\tau}a(x(t), p(t))\dd x\dd p
+    \end{equation}
+    但是我们无法求解由大量粒子（~$10^{23}$）构成的复杂系统的运动方程，无法给出系统的相轨道，
+    因此上面的定义难以给出有意义的结论。
+    \par 
+    Boltzmann通过提出\textbf{各态历经假设}
+    \footnote{从数学上讲各态历经假设并不是对于任意力学系统都成立}
+    来解决上面遇到的困难，Boltzmann认为对于能量守恒的系统，
+    经过足够长（微观上）时间演化后，系统的代表点在等能面上每一个点邻域内都停留相同长的时间。
+    利用这种思想，我们可以定义系统在宏观短微观长的时间内在相空间中每一点附近出现的概率$\rho(x, p, t)$，
+    那么就能将物理量对时间的平均转化到对相空间的平均：
+    \begin{equation}
+        A(t_0) = \int\rho(x, p, t_0)a(x, p)\dd x\dd p
+    \end{equation}
+    随着我们引入相空间中的概率密度函数$\rho(x, p, t)$，我们已经更换了思考问题的角度。我们不再考虑\textbf{一个
+    系统}长时间演化过程中在相空间中的分布，而是直接考虑以同样的密度函数分布在相空间中的\textbf{大量完全相同的系统}，
+    待求的宏观物理量是对应的微观物理量在这些系统上的平均值，可以想象，如果各态历经假设是成立的，那么这两种
+    平均应该给出相同的结果。
+    \par 
+    有了上面的讨论，就将求出任意时刻热力学量的问题转化为了求出任意时刻密度函数$\rho(x, p, t)$的问题，
+    这个密度函数被称为\textbf{系综密度函数}，下面给出系综的准确定义。
+    满足同样宏观条件（如能量、体积、粒子数）的系统有可能处于不同的微观运动状态、对应相空间中不同的代表点
+    ，将具有\textbf{相同宏观条件}的所有系统
+    \footnote{这些系统必须是“相同的系统”，即是用Hamilton方程所描述的系统，形象地说有着相同数量、种类
+    的粒子，并且相互作用也相同；但是这里的相同并不是说运动状态也相同，它们对应着相空间中不同的代表点
+    }
+    的集合称为此宏观条件下的一个\textbf{系综}。可以定义系综内系统代表点在相空间的归一化密度函数$\rho(x, p, t)$，
+    这个函数代表了这个系综内系统的代表点在$(x, p)$邻域出现的概率，
+    满足：
+    \begin{equation}
+        \begin{split}
+            &\rho(x, p, t) \geq 0\\
+            &\int\rho(x, p, t)\dd x\dd p = 1
+        \end{split}
+        \label{ensemble density}
+    \end{equation}
+    宏观系统（宏观物理量）的时间演化用系综随时间的演化来描述：系综中的每一个系统代表点都按照Hamilton方程
+    在相空间中运动，代表点会随着时间在相空间中重新分布，对应的系综密度函数也会随时间变化
+    \footnote{既然系综内系统的代表点按照Hamilton方程运动，这样引起的系综密度的变化是完全确定的，
+    可以用下一节将要介绍的Liouville方程描述}
+    ，任意时刻的物理量按照对应时刻的系综密度函数计算。
+    \subsection{Liouville方程}
+    \footnote{这一节的更多内容可以参考\cite{Tuckerman2010Statistical2}}
+    考虑给定初始时刻$t=0$大量系统的代表点在相空间中的一个分布
+    \footnote{这样的分布可能是某个系综对应的分布，也有可能只是任意给定的分布，不代表真实的系综}
+    ，这个分布可以用一个归一化的密度函数$\rho(x, p, 0)$（满足\ref{ensemble density}）来描述，
+    这些系统的代表点将在相空间中按照Hamilton方程演化，我们想知道$t$时间后相空间中代表点的密度函数，
+    即希望给出$\rho(x, p, 0)$满足的方程。
+    \par
+    假设给定的分布在相空间中代表点的总数目为$N$，对于0时刻任意相空间中的区域$D$
+    \footnote{在我们的讨论中总假设$D$是有体积的}，其中代表点的数目$n(D)$为：
+    \begin{equation}
+        n(D) = N\int_{D}\rho(x, p, 0)\dd x\dd p
+    \end{equation}
+    考虑$D$内所有点都按照Hamilton方程在相空间中运动，那么$t$时刻$D$将演化为$\phi^t(D)$
+    \footnote{$\phi^t$是Hamilton相流中的一个元素，具体定义参见前一章关于相流的讨论}，
+    在演化过程中，$D$内的代表点不会从中“跑出”，也不会有新的代表点进入，更不会凭空消失，
+    因此$\phi^t$内的代表点数目维持不变，即：
+    \begin{equation}
+        n(\phi^t(D)) = N\int_{\phi^t}\rho(x, p, t)\dd x\dd p = n(D)
+    \end{equation}
+    那么可以得到：
+    \begin{equation}
+        \int_{D}\rho(x, p, 0)\dd x\dd p = \int_{\phi^t(D)}\rho(x, p, t)\dd x\dd p
+    \end{equation}
+    对等式右边应用重积分的换元，利用$\phi^t$将$\phi^t(D)$变换为0时刻的区域$D$（参考\ref{volum of D}），
+    同时利用Liouville定理，上面的等式可转化为：
+    \begin{equation}
+        \int_{D}\rho(x_0, p_0, 0)\dd x_0\dd p_0 = \int_{D}\rho(x_t(x_0, p_0), p_t(x_0, p_0), t)\dd x_0 \dd p_0
+    \end{equation}
+    上式中$(x_t, p_t)$的精确含义是$(x_t, p_t) = \phi^t(x_0, p_0)$，表示$(x_t, p_t)$是由
+    $(x_0, p_0)$按照Hamilton方程演化$t$时间后到达的点。由于上面的区域$D$是任意给定的，那么可以得到：
+    \begin{equation}
+        \rho(x_t(x_0, p_0), p_t(x_0, p_0), t) = \rho(x_0, p_0, 0)
+    \end{equation}
+    对上面的等式对时间求导\footnote{这里的求导是沿着轨线进行的}：
+    \begin{equation}
+        \frac{\mathrm{d}\rho}{\mathrm{d}t} = \frac {\partial \rho}{\partial t} + \frac {\partial \rho}{\partial \bm{x}_t}\dot{\bm{x}}_t  + \frac {\partial \rho}{\partial \bm{p}_t} \dot{\bm{p}}_t = 0
+    \end{equation}
     再利用正则方程，得到
-    \begin{equation*}
-        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{p}_t} - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{x}_t}
-    \end{equation*}
-    定义\textbf{Poisson括号}为
-    \begin{equation*}
-        \{ \rho, H\} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{p}_t} - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{x}_t}
-    \end{equation*}
+    \begin{equation}
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{p}} - \bigg(\frac {\partial \rho}{\partial \bm{p}}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{x}}
+    \end{equation}
+    这个方程被称为Liouville方程。
+    \par 
+    考虑定义在相空间中的两个函数$A(\bm{x}, \bm{p}),B(x ,p)$定义这两个函数的\textbf{Poisson括号}为
+    \begin{equation}
+        \{A, B\} := 
+    \end{equation}
     则有
     \begin{equation*}
         - \frac {\partial \rho}{\partial t} = \{ \rho, H\}
@@ -25,7 +107,7 @@
         H(\bm{x}_t,\bm{p}_t) = \frac 12 \bm{p}_t^\mathrm{T} \bm{M}^{-1} \bm{p}_t + V(\bm{x}_t)
     \end{equation*}
     则有
-    \begin{equation*}
+    \begin{equation*} 
         - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \bm{M}^{-1} \bm{p}_t  - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial V}{\partial \bm{x}_t}
     \end{equation*}
 
@@ -42,6 +124,7 @@
     研究一个概率密度的时候，有两种方式：一种是研究密度对时间的偏导，看静止空间的概率密度的变化，
     这称为\textbf{Euler图象}。另一种方式是研究密度对时间的劝导，跟踪状态运动的轨线，
     研究这个密度体积元在不同的时间的位置，这称为\textbf{Lagrange图象}。
+
     \section{求解Liouville方程}
     \subsection{20201012：Euler图象演化概率密度}
     Liouville定理有两种表述形式：
@@ -53,7 +136,6 @@
         \frac {\mathrm{d}\rho}{\mathrm{d}t} = 0
     \end{equation*}
     第一种形式下，$\rho = \rho(x, p ,t)$, 第二种形式下$\rho = \rho(x_t,p_t,t)$. 分别表示了Euler和Lagrange两种图象。
-
     回顾描述HCl分子的振动的例子，我们可以用Morse势来描述这个振动：
     \begin{equation*}
         V(x) = D_e (1- \mathrm{e}^{-a(r-r_\mathrm{eq})})^2 = D_e(1-\mathrm{e}^{-ax})^2
@@ -145,7 +227,7 @@
         Boltzmann分布是否为稳态分布？
     \end{asg}
     \begin{asg}
-        第2次作业第2题：构造\ce{H2}分子的Morse势
+        查阅\ce{H2}分子的红外光谱数据，构造\ce{H2}分子的Morse势表达式。
     \end{asg}
     \begin{asg}
         以Boltzmann分布为初始分布?，在Morse势，Euler图象下演化\ce{H2}的$t$时刻的分布。
