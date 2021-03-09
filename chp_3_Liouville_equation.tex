@@ -83,6 +83,7 @@
     $(x_0, p_0)$按照Hamilton方程演化$t$时间后到达的点。由于上面的区域$D$是任意给定的，那么可以得到：
     \begin{equation}
         \rho(x_t(x_0, p_0), p_t(x_0, p_0), t) = \rho(x_0, p_0, 0)
+        \label{Liouville equation Lagrange}
     \end{equation}
     对上面的等式对时间求导\footnote{这里的求导是沿着轨线进行的}：
     \begin{equation}
@@ -90,71 +91,111 @@
     \end{equation}
     再利用正则方程，得到
     \begin{equation}
-        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{p}} - \bigg(\frac {\partial \rho}{\partial \bm{p}}\bigg)^\mathrm{T} \frac {\partial H}{\partial \bm{x}}
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}}\bigg)^\mathrm{t} \frac {\partial H}{\partial \bm{p}} - 
+        \bigg(\frac {\partial \rho}{\partial \bm{p}}\bigg)^\mathrm{t} \frac {\partial H}{\partial \bm{x}}
+        \label{Liouville equation Euler}
     \end{equation}
     这个方程被称为Liouville方程。
     \par 
-    考虑定义在相空间中的两个函数$A(\bm{x}, \bm{p}),B(x ,p)$定义这两个函数的\textbf{Poisson括号}为
+    考虑定义在相空间中的两个函数$A(\bm{x}, \bm{p}),B(x ,p)$，定义这两个函数的\textbf{Poisson括号}
+    \footnote{
+        可以使用更紧凑的形式表达Poisson括号。考虑Hamilton方程\ref{canonical equation}，其中将$(\bm{x}, \bm{p})$
+        合并为正则变量$\bm{\eta}$，基于这种考虑，可以将Poisson括号写为：
+        \begin{equation}
+            \{A, B\} = \left(\pdv{A}{\bm{\eta}}\right)^\mr{t}\bm{J}\left(\pdv{B}{\bm{\eta}}\right)
+        \end{equation}
+        从这种形式的Poisson括号更容易看出其是正则变换下的不变量。
+    }
+    ：
     \begin{equation}
-        \{A, B\} := 
+        \{A, B\} := \left(\pdv{A}{\bm{x}}\right)^\mr{t}\left(\pdv{B}{\bm{p}}\right) - \left(\pdv{A}{\bm{p}}\right)\mr{t}\left(\pdv{B}{\bm{x}}\right)
     \end{equation}
-    则有
-    \begin{equation*}
+    利用Poisson括号重写Liouville方程：
+    \begin{equation}
         - \frac {\partial \rho}{\partial t} = \{ \rho, H\}
-    \end{equation*}
-    这也是Liouville定理的一种形式。如果Hamilton函数满足形式
-    \begin{equation*}
-        H(\bm{x}_t,\bm{p}_t) = \frac 12 \bm{p}_t^\mathrm{T} \bm{M}^{-1} \bm{p}_t + V(\bm{x}_t)
-    \end{equation*}
-    则有
-    \begin{equation*} 
-        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}_t}\bigg)^\mathrm{T} \bm{M}^{-1} \bm{p}_t  - \bigg(\frac {\partial \rho}{\partial \bm{p}_t}\bigg)^\mathrm{T} \frac {\partial V}{\partial \bm{x}_t}
-    \end{equation*}
-
-    一种常见的分布：\textbf{Boltzmann分布}：
-    \begin{equation*}
+    \end{equation}
+    得到Liouville方程的另一种表述形式。如果Hamilton函数满足形式:
+    \begin{equation}
+        H(\bm{x},\bm{p}) = \frac{1}{2}\bm{p}^\mathrm{t} \bm{M}^{-1} \bm{p} + V(\bm{x})
+    \end{equation}
+    那么这个系统的Liuville方程就可以写为：
+    \begin{equation} 
+        - \frac {\partial \rho}{\partial t} = \bigg(\frac {\partial \rho}{\partial \bm{x}}\bigg)^\mathrm{t} \bm{M}^{-1} \bm{p}
+         - \bigg(\frac {\partial \rho}{\partial \bm{p}}\bigg)^\mathrm{t} \frac {\partial V}{\partial \bm{x}}
+    \end{equation}
+    \par
+    这里给出一种常见的分布——\textbf{Boltzmann分布}\footnote{这是正则系综（NVT系综）的系综密度函数}：
+    \begin{equation}
         \rho(\bm{x},\bm{p}) \propto \mathrm{e}^{-\beta H(\bm{x},\bm{p})}
-    \end{equation*}
+    \end{equation}
 
-    如果一个分布满足
-    \begin{equation*}
+    如果一个分布满足：
+    \begin{equation}
         \frac {\partial \rho}{\partial t} = 0
-    \end{equation*}
-    则称之为\textbf{稳态分布}。但是即使不是稳态分布，它也会满足对时间的全导数是0。这也是Liouville定理的一个形式。
-    研究一个概率密度的时候，有两种方式：一种是研究密度对时间的偏导，看静止空间的概率密度的变化，
-    这称为\textbf{Euler图象}。另一种方式是研究密度对时间的劝导，跟踪状态运动的轨线，
-    研究这个密度体积元在不同的时间的位置，这称为\textbf{Lagrange图象}。
+    \end{equation}
+    那么可以看出在相空间中任何一点$(\bm{x}_1, \bm{p}_1)$的系综密度$\rho(\bm{x}_1, \bm{p}_1, t)$
+    是一个与时间无关的常量（此时系综密度函数不显含时间），在这种情况下，对于任意微观量$a(\bm{x}, \bm{p})$
+    其系综平均值为：
+    \begin{equation}
+        A(t) = \int\rho(\bm{x}, \bm{p})a(\bm{x}, \bm{p})\dd \bm{x}\dd \bm{p}
+    \end{equation}
+    $A$是一个不随时间变化的微观量，那么称这样的分布为\textbf{稳态分布}。
 
     \section{求解Liouville方程}
-    \subsection{20201012：Euler图象演化概率密度}
-    Liouville定理有两种表述形式：
-    \begin{equation*}
-        -\frac {\partial \rho}{\partial t} = \{ \rho,H \}
-    \end{equation*}
-    以及 
-    \begin{equation*}
-        \frac {\mathrm{d}\rho}{\mathrm{d}t} = 0
-    \end{equation*}
-    第一种形式下，$\rho = \rho(x, p ,t)$, 第二种形式下$\rho = \rho(x_t,p_t,t)$. 分别表示了Euler和Lagrange两种图象。
-    回顾描述HCl分子的振动的例子，我们可以用Morse势来描述这个振动：
-    \begin{equation*}
+    一般我们遇到的是给定初始系综密度分布，求解$t$时刻系综密度的问题，即如下一阶偏微分方程的初值问题
+    （为了方便书写假设为一维系统）：
+    \begin{equation}
+        \left\{
+        \begin{split}
+            -\pdv{\rho}{t} &= \pdv{\rho}{x}\pdv{H}{p} - \pdv{\rho}{p}\pdv{H}{x}\\
+            \rho(x, p, 0) &= f(x, p)
+        \end{split}
+        \right.
+    \end{equation}
+    在求解这个问题时很难使用解析的方法，一般都是利用数值解法求解。针对Liouville方程的特点，我们
+    从两个视角出发，给出两种基本的解法。
+    从方程\ref{Liouville equation Euler}出发，可以研究给定区域（给定点附近）内系综密度随时间的变化，
+    这称为\textbf{Euler图象}
+    \footnote{这个名称来源于流体力学，Euler通过描述空间内的\textbf{流速场}来描述流体的运动；Lagrange通过描述
+    每一个质点的\textbf{运动轨迹}来描述流体的运动。}
+    。从方程\ref{Liouville equation Lagrange}出发，可以追踪相空间内按照Hamilton方程运动的点处的系综密度
+    ，轨线上任意一点的系综密度值都可以通过初值确定，这称为\textbf{Lagrange图象}。
+    \subsection{从Euler图像求解任意时刻的系综密度}
+    为了更加生动地讲解方法，这里给出实际地例子。
+    回顾第一章中使用经典力学描述HCl分子的振动，在那里只讨论了谐振子地情形，事实上可以用Morse势来
+    更精确地描述这个振动，Morse势被定义为：
+    \begin{equation}
         V(x) = D_e (1- \mathrm{e}^{-a(r-r_\mathrm{eq})})^2 = D_e(1-\mathrm{e}^{-ax})^2
-    \end{equation*}
-    其中有$a>0$, 在平衡位置附近可以使用谐振子近似。写出其Boltzmann分布
-    \begin{equation*}
-        \rho(x,p,0) = \frac 1Z \mathrm{e}^{-\beta (\frac {p^2}{2m} + \frac 12 m\omega^2 x^2)} 
-    \end{equation*}
-    由概率密度的归一化，可以得到配分函数的值，这里涉及到Gauss函数的积分
-    \begin{align*}
-        I &= \int_0^{+\infty} \mathrm{e}^{-ax^2} x^{n} \mathrm{d}x
-    \end{align*}
+    \end{equation}
+    其中$a>0$, 在平衡位置附近可以使用谐振子近似（Taylor展开到二阶）。写出谐振子近似下的Boltzmann分布：
+    \begin{equation}
+        \rho(x,p,0) = \frac {1}{Z} \mathrm{e}^{-\beta (\frac {p^2}{2m} + \frac 12 m\omega^2 x^2)} 
+    \end{equation}
+    其中谐振子的参数$\omega$后面给出。
+    上面给出的系综密度函数不满足归一化条件，只有归一化之后才会使严格意义上的系综密度函数，
+    显然归一化常数$Z$为：
+    \begin{equation}
+        Z = \int\ee^{-\beta H(x, p)}\dd x\dd p
+    \end{equation}
+    这个归一化常数被称为\textbf{正则配分函数}。归一化的过程涉及到Gauss函数的积分，下面给出一个一般的定义：
+    \begin{equation}
+        I(a) = \int_0^{+\infty} \mathrm{e}^{-ax^2} x^{n} \mathrm{d}x
+        \label{1_D Gauss integral}
+    \end{equation}
+    \footnote{
+        对于最基本的Gauss积分：
+        \begin{equation}
+            \int_{0}^{+\infty}
+        \end{equation}
+    }
+
     令$t = ax^2$, 则$\mathrm{d}t = 2ax\mathrm{d}x$
     所以
-    \begin{align*}
+    \begin{equation*}
     I &= \int_0^{+\infty} \mathrm{e}^{-t} \bigg(\frac ta\bigg)^{\frac n2} \frac {\mathrm{d}t}{\sqrt{at}}\\
     &= \frac 1{2a^{\frac {n+1}2}} \int_0^{+\infty} \mathrm{e}^{-t} t^{\frac {n-1}2} \mathrm{d}t\\
     &= \frac {\Gamma(\frac {n+1}2)}{2a^{\frac {n+1}2}}
-    \end{align*}
+    \end{equation*}
     据此算出配分函数
     \begin{equation*}
         Z = \int \mathrm{e}^{-\beta (\frac {p^2}{2m} + \frac 12 m\omega^2 x^2)} \mathrm{d}x\mathrm{d}p = \frac {2\pi}{\beta \omega}
@@ -189,23 +230,23 @@
         \rho(x,p,t) = \int \rho(x_0,p_0,0)\delta(x-x_t(x_0,p_0)) \delta(p-p_t(x_0,p_0)) \mathrm{d}x_0\mathrm{d}p_0
     \end{equation*}
     这里引入了$\delta$函数。$\delta$函数满足
-    \begin{align*}
+    \begin{equation*}
         \delta(x-x_0) &= 0, \ \forall \ x \neq x_0\\
         \int_{-\infty}^{+\infty} \delta(x-x_0) \mathrm{d}x &= 1\\
         \int_{-\infty}^{+\infty} f(x)\delta(x-x_0) \mathrm{d}x &= f(x_0)
-    \end{align*}
+    \end{equation*}
     现在希望给$\delta$函数给一个形式，让它和上面满足的性质自洽：
     可以利用Fourier变换及其逆变换的定义
-    \begin{align*}
+    \begin{equation*}
         \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f(x)\mathrm{e}^{\mathrm{i}kx}\mathrm{d}x &= F(k)\\
         \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} F(k)\mathrm{e}^{-\mathrm{i}kx}\mathrm{d}k &= f(x)
-    \end{align*}
+    \end{equation*}
     于是有
-    \begin{align*}
+    \begin{equation*}
         f(x_0) &= \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} \frac 1{\sqrt{2\pi}} \int_{-\infty}^{+\infty} f(x)\mathrm{e}^{\mathrm{i}kx}\mathrm{d}x \mathrm{e}^{-\mathrm{i}kx_0}\mathrm{d}k\\
         &= \frac 1{2\pi} \iint f(x)\mathrm{e}^{\mathrm{i}k(x-x_0)}\mathrm{d}x\mathrm{d}k\\
         &= \frac 1{2\pi} \iint f(x)\mathrm{e}^{\mathrm{i}k(x-x_0)}\mathrm{d}k\mathrm{d}x
-    \end{align*}
+    \end{equation*}
     于是可以写出$\delta$函数为
     \begin{equation*}
         \delta(x-x_0) = \frac 1{2\pi} \int_{-\infty}^{+\infty} \mathrm{e}^{\mathrm{i}k(x-x_0)}\mathrm{d}k
@@ -216,11 +257,11 @@
         \langle B(t) \rangle = \int \rho(x,p,t) B(x,p) \mathrm{d}x\mathrm{d}p
     \end{equation*}
     回到用Morse势描述HCl的振动的问题，在这个问题下，初始时刻为Boltzmann分布时，
-    \begin{align*}
+    \begin{equation*}
         \langle x \rangle &= 0\\
         \langle x^2 \rangle &= \frac 1{\beta m \omega^2}\\
         \Delta x &= \sqrt{\langle x^2 \rangle - \langle x \rangle ^2} = \frac 1{\sqrt{\beta m \omega^2}}
-    \end{align*}
+    \end{equation*}
 
     \section{Homework}
     \begin{asg}
