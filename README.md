@@ -35,4 +35,7 @@ chapter 9 : Bohmain 动力学
 chapter 10 : Winger 函数
 
 
+## `main_dsp.pdf` 是最终效果
+
+
 
