@@ -1,21 +1,11 @@
-\chapter{多自由度的小振动}
+\chapter{多自由度小振动}
 
-    \section{20201019：多自由度振动的频率计算}
-    利用上一节得到的$\delta$函数，可以计算在$t$时刻的物理量期望为
-    \begin{align*}
-        \langle B(t) \rangle &= \int \rho(\bm{x},\bm{p},t) B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p}\\
-        &= \int \int \rho(\bm{x}_0,\bm{p}_0,0)\delta(\bm{x}-\bm{x}_t(\bm{x}_0,\bm{p}_0)) \delta(\bm{p}-\bm{p}_t(\bm{x}_0,\bm{p}_0)) \mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0 B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p}\\
-        &= \int \int \delta(\bm{x}-\bm{x}_t(\bm{x}_0,\bm{p}_0)) \delta(\bm{p}-\bm{p}_t(\bm{x}_0,\bm{p}_0)) B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p} \rho(\bm{x}_0,\bm{p}_0,0) \mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0\\
-        &= \int B(\bm{x}_t,\bm{p}_t) \rho(\bm{x}_0,\bm{p}_0,0)\mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0
-    \end{align*}
-    这意味着，只用初始概率密度也可以得到$t$时刻的物理量的期望。
-
-    现在研究复杂一些的\ce{H2O}分子的振动。它总共有3个原子，所以9个自由度。平动3个自由度，转动也有3个自由度，因此振动是3个自由度。3个振动自由度分别为剪切振动、对称伸缩振动和不对称伸缩振动。
-    \begin{asg}
-        第3次作业第3题：水分子的简谐振动分析
-    \end{asg}
-    水分子的O-H振动波数约为3700 cm$^{-1}$, 剪切振动波数约为1600 cm$^{-1}$, 伸缩振动1个周期应当约为20.8 fs, 剪切振动波数约为9 fs. 而1 a.u. = 0.024 fs.即可据此估计模拟过程中的时间步长。
-
+    \section{多自由度振动的频率计算}
+    现在研究复杂一些的\ce{H2O}分子的振动。它总共有3个原子，所以9个自由度。平动3个自由度，
+    转动也有3个自由度，因此振动是3个自由度。3个振动自由度分别为剪切振动、对称伸缩振动和不对称伸缩振动。
+    水分子的O-H振动波数约为3700 cm$^{-1}$, 剪切振动波数约为1600 cm$^{-1}$, 
+    伸缩振动1个周期应当约为20.8 fs, 剪切振动波数约为9 fs. 而1 a.u. = 0.024 fs.
+    即可据此估计模拟过程中的时间步长。
     对于水分子，定义其坐标为
     \begin{equation*}
         \bm{x} = 
@@ -36,6 +26,7 @@
     \end{equation*}
     其中，$m_1,m_2,m_3$等于氧原子的质量，$m_4,...,m_9$等于氢原子的质量。
 
+    \section{简正坐标}
     定义\textbf{Hessian}矩阵$\bm{\mathcal{H}}$为 
     \begin{equation*}
         \bm{\mathcal{H}}_{ij} = \frac 1{\sqrt{m_i}} \frac {\partial^2 V}{\partial x_i \partial x_j} \frac 1{\sqrt{m_j}}
@@ -58,9 +49,6 @@
     \begin{equation*}
         \bm{\mathcal{H} = M}^{-\frac 12} \bm{V}^{(2)} \bm{M}^{-\frac 12}
     \end{equation*}
-
-
-    \section{20201023：简正坐标}
     上一节研究的Hessian矩阵对角化向量形式应为
     \begin{equation*}
         \bm{\mathcal{H}b}_j = \omega_j^2 \bm{b}_j
@@ -112,7 +100,7 @@
         V(\bm{Q}) = V(\bm{0}) + \frac 12 \bm{Q}^\mathrm{T} \bm{\Omega Q} = V(\bm{0}) + \sum_{j=1}^N \frac 12 \omega_j^2 Q_j^2
     \end{equation*}
 
-    \section{20201026：简正坐标和Cartesian坐标的关系}
+    \section{简正坐标和Cartesian坐标的关系}
     上一节讨论了势能在简正坐标下的形式。要想得到全能量，还需要给出动量在简正坐标下的形式。根据
     \begin{equation*}
         \bm{p} = \bm{M\dot{x}} = \bm{M}^{\frac 12} \bm{T\dot{Q}}
@@ -194,6 +182,12 @@
         \mathcal{P} = \prod_j \mathcal{P}_j
     \end{equation*}
     由此可以得到Cartesian坐标下概率密度。
+
+    \section{Homework}
+    \begin{asg}
+        水分子的简谐振动分析
+    \end{asg}
+
 
     \bibliographystyle{plain}
     \bibliography{ref_chp_4}
