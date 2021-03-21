@@ -481,8 +481,8 @@
     \begin{equation}
         \begin{split}
             \langle B(t) \rangle &= \int \rho(\bm{x},\bm{p},t) B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p}\\
-            &= \int \int \rho(\bm{x}_0,\bm{p}_0,0)\delta(\bm{x}-\bm{x}_t(\bm{x}_0,\bm{p}_0)) \delta(\bm{p}-\bm{p}_t(\bm{x}_0,\bm{p}_0)) \mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0 B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p}\\
-            &= \int \int \delta(\bm{x}-\bm{x}_t(\bm{x}_0,\bm{p}_0)) \delta(\bm{p}-\bm{p}_t(\bm{x}_0,\bm{p}_0)) B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p} \rho(\bm{x}_0,\bm{p}_0,0) \mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0\\
+            &= \iint \rho(\bm{x}_0,\bm{p}_0,0)\delta(\bm{x}-\bm{x}_t(\bm{x}_0,\bm{p}_0)) \delta(\bm{p}-\bm{p}_t(\bm{x}_0,\bm{p}_0)) \mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0 B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p}\\
+            &= \iint \delta(\bm{x}-\bm{x}_t(\bm{x}_0,\bm{p}_0)) \delta(\bm{p}-\bm{p}_t(\bm{x}_0,\bm{p}_0)) B(\bm{x},\bm{p}) \mathrm{d}\bm{x}\mathrm{d}\bm{p} \rho(\bm{x}_0,\bm{p}_0,0) \mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0\\
             &= \int B(\bm{x}_t,\bm{p}_t) \rho(\bm{x}_0,\bm{p}_0,0)\mathrm{d}\bm{x}_0\mathrm{d}\bm{p}_0
         \end{split}
     \end{equation}
