@@ -34,7 +34,7 @@
     其中，$m_1,m_2,m_3$等于氧原子的质量，$m_4,...,m_9$等于氢原子的质量。那么可以将
     系统的动量表示为：
     \begin{equation}
-        \bm{p} = \bm{M}\cdot\bm{x}
+        \bm{p} = \bm{M}\cdot\dot{\bm{x}}
     \end{equation}
     仿照一维系统的Hamilton量，可以写出这个多维系统的Hamilton量：
     \begin{equation}
@@ -80,68 +80,66 @@
         \bm{q} = \bm{x} - \bm{x_{\mr{eq}}}
     \end{equation}
     表示偏移平衡点的位移。
+
     \section{简正坐标}
     对于更一般的情况，质量矩阵$\bm{M}$不一定是对角的，但一定是实对称且正定的矩阵
-    
+    \footnote{对于非直角坐标，比如在某些约束下定义的广义坐标，$\bm{M}$并不对角，
+    但是由于动能只可能是正值，所以$\bm{M}$一定正定}
+    ，这样就可以唯一地定义它正定的平方根$\bm{M}^{\frac{1}{2}}$
+    \footnote{这也是一个实对称矩阵，结论可以通过对角化这个矩阵来理解，详细的证明要参考线性代数教材}，
+    将Hamilton量\ref{the Hamiltonian of samll vibration}写为：
+    \begin{equation}
+        H(\bm{q},\bm{p}) = \frac{1}{2}\left(\bm{M}^{-\frac{1}{2}}\bm{p}\right)^\mr{t}\bm{M}^{-\frac{1}{2}}\bm{p} + 
+        \frac{1}{2}\left(\bm{M}^{\frac{1}{2}}\bm{q}\right)^{t}\bm{M}^{-\frac{1}{2}}\bm{K}\bm{M}^{-\frac{1}{2}}\left(\bm{M}^{\frac{1}{2}}\bm{q}\right)
+    \end{equation}
     定义\textbf{Hessian}矩阵$\bm{\mathcal{H}}$为 
-    \begin{equation*}
-        \bm{\mathcal{H}}_{ij} = \frac 1{\sqrt{m_i}} \frac {\partial^2 V}{\partial x_i \partial x_j} \frac 1{\sqrt{m_j}}
-    \end{equation*}
-    它的单位为s$^{-2}$. 显然地，这是一个实对称矩阵，可以由正交矩阵作对角化：
-    \begin{equation*}
-        \bm{T}^\mathrm{T} \bm{\mathcal{H}T = \Omega}
-    \end{equation*}
-    其中$\bm{T}$为\textbf{正交矩阵}，满足 
-    \begin{equation*}
-        \bm{T}^\mathrm{T}\bm{T} = \bm{TT}^\mathrm{T} = \bm{I}
-    \end{equation*}
-    并且
-    \begin{equation*}
-        \bm{\Omega} = \mathrm{diag} \{\omega_1^2, ..., \omega_9^2 \}
-    \end{equation*}
-    这样就得到了角频率，$\omega_j$对应的能量为$\hbar \omega_j$。总共得到了9个模式的频率，其中3个模式的频率对应平动，3个模式频率对应转动（平动转动的频率趋于0），3个模式频率对应振动。
+    \begin{equation}
+        \begin{split}
+            \bm{\mathcal{H}} = \bm{M}^{-\frac{1}{2}}\bm{K}\bm{M}^{-\frac{1}{2}}
+        \end{split}
+        \label{Hessian matrix}
+    \end{equation}
+    它的量纲为s$^{-2}$. 显然这是一个实对称矩阵，可以由正交矩阵作对角化：
+    \begin{equation}
+        \bm{\mathcal{H}} = \bm{S}\bm{\mathcal{H}S}^{\mr{t}}
+    \end{equation}
+    其中$\Omega$为一个对角矩阵，$\bm{S}$为\textbf{正交矩阵}
+    \footnote{
+        正交矩阵满足: 
+    \begin{equation}
+        \bm{S}^\mathrm{t}\bm{S} = \bm{SS}^\mathrm{t} = \bm{I}
+    \end{equation}
+    }
+    ，其列向量为$\bm{\mathcal{H}}$的特征向量，
+    令：
+    \begin{equation}
+        \bm{\Omega} = \mathrm{diag} \{\omega_1^2, ..., \omega_N^2 \}
+    \end{equation}
+    这样就得到了$N$个（$N$为系统的总自由度数目）具有频率量纲的常数，后面我们会讨论
+    其物理含义。利用上面对角化使用的矩阵，可以继续改写Hamilton方程：
+    \begin{equation}
+        H(\bm{q},\bm{p}) = \frac{1}{2}\left(\bm{S}^\mr{t}\bm{M}^{-\frac{1}{2}}\bm{p}\right)^\mr{t}\left(\bm{S}^\mr{t}\bm{M}^{-\frac{1}{2}}\bm{p}\right) + 
+        \frac{1}{2}\left(\bm{S}^\mr{t}\bm{M}^{\frac{1}{2}}\bm{q}\right)^{t}\bm{\Omega}\left(\bm{S}^\mr{t}\bm{M}^{\frac{1}{2}}\bm{q}\right)
+    \end{equation}
+    利用上面Hamilton量的形式，定义如下相空间中的坐标变换（简正坐标变换）：
+    \begin{equation}
+        \begin{split}
+            \bm{Q} = \bm{S}^\mr{t}\bm{M}^{\frac{1}{2}}\bm{q}\\
+            \bm{P} = \bm{S}^\mr{t}\bm{M}^{-\frac{1}{2}}\bm{p}
+        \end{split}
+        \label{normal mode transformation}
+    \end{equation}
+    这样就可以将Hamilton量方便地记为：
+    \begin{equation}
+        \begin{split}
+        H(Q,P) &= \frac{1}{2}\bm{P}^{\mr{t}}\bm{P} + \frac{1}{2}\bm{Q}^{\mr{t}}\bm{\Omega}\bm{Q}\\
+        & = \frac{1}{2}\sum_{i=1}^{N}P_{i}^2 + \frac{1}{2}\sum_{i=1}^{N}\omega_{i}^2Q_{i}^{2}
+        \end{split}
+    \end{equation}
+    表面上看起来这是$N$个不耦合（之间没有相互作用）的简谐振子的Hamilton量，其解也有简单的形式（在第一章
+    中我们讨论了这个问题）。\textbf{但是}，这里忽略了一个
 
-    如果用矩阵形式来表示Hessian矩阵，应有
-    \begin{equation*}
-        \bm{\mathcal{H} = M}^{-\frac 12} \bm{V}^{(2)} \bm{M}^{-\frac 12}
-    \end{equation*}
-    上一节研究的Hessian矩阵对角化向量形式应为
-    \begin{equation*}
-        \bm{\mathcal{H}b}_j = \omega_j^2 \bm{b}_j
-    \end{equation*}
-    由此可知 
-    \begin{equation*}
-        \bm{H}
-        \begin{pmatrix}
-            \bm{b}_1 & \cdots & \bm{b}_N
-        \end{pmatrix}
-        = 
-        \begin{pmatrix}
-            \bm{b}_1 & \cdots & \bm{b}_N
-        \end{pmatrix}
-        \bm{\Omega}
-    \end{equation*}
-    所以
-    \begin{equation*}
-        \bm{T} = 
-        \begin{pmatrix}
-            \bm{b}_1 & \cdots & \bm{b}_N
-        \end{pmatrix}
-    \end{equation*}
-    有
-    \begin{equation*}
-        \bm{HT = T\Omega}
-    \end{equation*}
-    要得到本征值，应当有
-    \begin{equation*}
-        \det (\bm{\mathcal{H}}- \omega^2 \bm{I}) = 0
-    \end{equation*}
-    即可得到$N$本征频率。
-    \begin{asg}
-        第3次作业第1题：证明Hessian矩阵的本征值都是实数。
-    \end{asg}
-
-    水分子在谐振子近似下的势能函数为
+    水分子在谐振子近似下的势能函数为：
     \begin{align*}
         V(\bm{x}) &= V(\bm{x}_\mathrm{eq}) + \frac 12 (\bm{x-x}_\mathrm{eq})^\mathrm{T} \bm{V}^{(2)} (\bm{x-x}_\mathrm{eq})\\
         &= V(\bm{x}_\mathrm{eq}) + \frac 12 (\bm{x-x}_\mathrm{eq})^\mathrm{T} \bm{M}^{\frac 12}\bm{\mathcal{H}} \bm{M}^{\frac 12} (\bm{x-x}_\mathrm{eq})\\
@@ -241,7 +239,11 @@
 
     \section{Homework}
     \begin{asg}
-        水分子的简谐振动分析
+        证明Hessian矩阵的本征值都是实数。
+    \end{asg}
+    \begin{asg}
+        给定水分子简正坐标下的初始系综密度函数，求键长、键角
+        的期望和涨落随时间的变化。
     \end{asg}
 
 
