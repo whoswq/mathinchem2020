@@ -51,14 +51,38 @@
          + \frac{1}{2}\bm{q}^{\mr{t}}\left.\pdv{^2V}{\bm{x}^2}\right|_{\bm{x} = \bm{x_{\mr{eq}}}}\bm{q} + o(\left|\bm{q}\right|^2)\\
         \end{split}
     \end{equation}
-    显然在平衡位置$\dps\left.\pdv{V}{\bm{x}}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}^{\mr{t}}$为0；同时常数项不会影响
+    显然在平衡位置$\dps\left.\pdv{^2V}{\bm{x}^2}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}$为0；同时常数项不会影响
     运动方程，可以不予考虑；如果在$\bm{q}$比较小时，忽略2阶以上的项\footnote{这就是小振动近似}，那么就可以将势能函数
     重写为：
     \begin{equation}
-        V(\bm{q}) = \frac{1}{2}\bm{q}^{\mr{t}}\left.\pdv{V}{\bm{x}}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}^{\mr{t}}\bm{q}
-        \label{potential of }
+        V(\bm{q}) = \frac{1}{2}\bm{q}^{\mr{t}}\left.\pdv{^2V}{\bm{x}^2}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}\bm{q}
+        \label{potential at equilibrium point}
     \end{equation}
+    定义矩阵（通常而言是一个半正定
+    \footnote{
+        一般而言这个矩阵一定有0作为特征值。因为分子在某些
+        自由度运动时（刚性转动、质心平动）分子的势能不变，这说明在势能极小值处
+        沿着某些方向运动时势能函数恒定。可以说明代表分子整体平移的矢量是此矩阵特征值为0
+        的特征向量，但是对于分子的转动，不一定会对应一个特征值为0的特征向量？
+    }
+    的实对称矩阵）：
+    \begin{equation}
+        \bm{K} = \left.\pdv{^2V}{\bm{x}^2}\right|_{\bm{x} = \bm{x}_{\mr{eq}}}
+        \label{potential matrix}
+    \end{equation}
+    那么系统在平衡位置的Hamilton量可以写为：
+    \begin{equation}
+        H(\bm{q}, \bm{p}) = \frac{1}{2}\bm{p}^{\mr{t}}\bm{M}^{-1}\bm{p} + \frac{1}{2}\bm{q}^{\mr{t}}\bm{K}\bm{q}
+        \label{the Hamiltonian of samll vibration}
+    \end{equation}
+    其中$\bm{q}$为：
+    \begin{equation}
+        \bm{q} = \bm{x} - \bm{x_{\mr{eq}}}
+    \end{equation}
+    表示偏移平衡点的位移。
     \section{简正坐标}
+    对于更一般的情况，质量矩阵$\bm{M}$不一定是对角的，但一定是实对称且正定的矩阵
+    
     定义\textbf{Hessian}矩阵$\bm{\mathcal{H}}$为 
     \begin{equation*}
         \bm{\mathcal{H}}_{ij} = \frac 1{\sqrt{m_i}} \frac {\partial^2 V}{\partial x_i \partial x_j} \frac 1{\sqrt{m_j}}
